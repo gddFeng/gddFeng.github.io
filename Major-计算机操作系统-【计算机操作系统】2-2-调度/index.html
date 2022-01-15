@@ -1,0 +1,845 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="算法的调度，这个可能是重点吧，感觉是个大考点&#x3D;&#x3D;、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【计算机操作系统】2-2-调度">
+<meta property="og:url" content="http://www.gddfeng.com/Major-%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E3%80%90%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E3%80%912-2-%E8%B0%83%E5%BA%A6/index.html">
+<meta property="og:site_name" content="孤独的風">
+<meta property="og:description" content="算法的调度，这个可能是重点吧，感觉是个大考点&#x3D;&#x3D;、">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-06T09:35:56.000Z">
+<meta property="article:modified_time" content="2022-01-06T09:35:56.000Z">
+<meta property="article:author" content="gddFeng">
+<meta property="article:tag" content="考研学习">
+<meta property="article:tag" content="计算机操作系统">
+<meta name="twitter:card" content="summary"><title>【计算机操作系统】2-2-调度 | 孤独的風</title><link ref="canonical" href="http://www.gddfeng.com/Major-%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E3%80%90%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E3%80%912-2-%E8%B0%83%E5%BA%A6/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/课堂笔记/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">课堂笔记</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">编程语言</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/编程语言/c/"><span class="header-nav-submenu-item__text">C++</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">考研学习</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/考研学习/计算机网络/"><span class="header-nav-submenu-item__text">计算机网络</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/考研学习/计算机操作系统/"><span class="header-nav-submenu-item__text">计算机操作系统</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">渗透测试</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/渗透测试/SQL注入/"><span class="header-nav-submenu-item__text">SQL注入</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">【计算机操作系统】2-2-调度</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-01-06</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-06</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">6.9k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">35分</span></span></div></header><div class="post-body">
+        <h1 id="处理机调度的概念、层次"   >
+          <a href="#处理机调度的概念、层次" class="heading-link"><i class="fas fa-link"></i></a><a href="#处理机调度的概念、层次" class="headerlink" title="处理机调度的概念、层次"></a>处理机调度的概念、层次</h1>
+      <ul>
+<li>基本概念</li>
+<li>三个层次<ul>
+<li>高级调度(作业调度)</li>
+<li>中级调度(内存调度)</li>
+<li>低级调度(进程调度)</li>
+</ul>
+</li>
+<li>三层调度的联系、对比</li>
+<li>补充知识<ul>
+<li>进程的“挂起态”</li>
+<li>七状态模型</li>
+</ul>
+</li>
+</ul>
+
+        <h2 id="调度的基本概念"   >
+          <a href="#调度的基本概念" class="heading-link"><i class="fas fa-link"></i></a><a href="#调度的基本概念" class="headerlink" title="调度的基本概念"></a>调度的基本概念</h2>
+      <p>当有一堆任务要处理，但由于资源有限，这些事情没法同时处理。这就需要确定<strong>某种规则</strong>来<strong>决定</strong>处理这些任务的<strong>顺序</strong>，这就是“调度”研究的问题。</p>
+<p>在多道程序系统中，进程的数量往往是多于处理机的个数的，这样不可能同时并行地处理各个进程。</p>
+<p><strong>处理机调度</strong>，就是从就绪队列中<strong>按照一定的算法选择一个进程</strong>并<strong>将处理机分配给它</strong>运行，以实现进程的并发执行。</p>
+
+        <h2 id="调度的三个层次——高级调度"   >
+          <a href="#调度的三个层次——高级调度" class="heading-link"><i class="fas fa-link"></i></a><a href="#调度的三个层次——高级调度" class="headerlink" title="调度的三个层次——高级调度"></a>调度的三个层次——高级调度</h2>
+      <p>由于内存空间有限，有时无法将用户提交的作业全部放入内存，因此就需要确定某种规则来决定将作业调入内存的顺序。</p>
+<p><strong>高级调度(作业调度)<strong>。按一定的原则从外存上处于后备队列的作业中挑选一个(或多个)作业，给他们分配内存等必要资源，并</strong>建立相应的进程(建立PCB)<strong>，以使它们</strong>获得竞争处理机的权利</strong>。</p>
+<p>高级调度是辅存(外存)与内存之间的调度。每个作业只调入一次，调出一次。<strong>作业调入时会建立相应的PCB，作业调出时才撤销PCB。</strong>高级调度主要是指调入的问题，因为只有调入的时机需要操作系统来确定，但调出的时机必然是作业运行结束才调出。</p>
+
+        <h2 id="调度的三个层次——中级调度"   >
+          <a href="#调度的三个层次——中级调度" class="heading-link"><i class="fas fa-link"></i></a><a href="#调度的三个层次——中级调度" class="headerlink" title="调度的三个层次——中级调度"></a>调度的三个层次——中级调度</h2>
+      <p>引入了虚拟存储技术之后，可将暂时不能运行的进程调至外存等待。等它重新具备了运行条件且内存又稍有空闲时，再重新调入内存。</p>
+<p>这么做的目的是为了<strong>提高内存利用率</strong>和<strong>系统吞吐量</strong>。</p>
+<p>暂时调到外存等待的进程状态为<strong>挂起状态</strong>。值得注意的是，<strong>PCB</strong>并不会一起调到外存，而是<strong>会常驻内存</strong>。PCB中会记录进程数据在外存中的存放位置，进程状态等信息，操作系统通过内存中的PCB来保持对各个进程的监控、管理。被挂起的进程PCB会被放到的<strong>挂起队列</strong>中。</p>
+<p>**中级调度(内存调度)**，就是要决定将哪个处于挂起状态的进程重新调入内存。</p>
+<p>一个进程可能会被多次调出、调入内存，因此<strong>中级调度</strong>发生的<strong>频率</strong>要比高级调度<strong>更高</strong>。</p>
+
+        <h2 id="补充知识：进程的挂起状态与七状态模型"   >
+          <a href="#补充知识：进程的挂起状态与七状态模型" class="heading-link"><i class="fas fa-link"></i></a><a href="#补充知识：进程的挂起状态与七状态模型" class="headerlink" title="补充知识：进程的挂起状态与七状态模型"></a>补充知识：进程的挂起状态与七状态模型</h2>
+      <p>暂时调到外存等待的进程状态为<strong>挂起状态(挂起态，suspend)</strong></p>
+<p>挂起态又可以进一步细分为<strong>就绪挂起</strong>、<strong>阻塞挂起</strong>两种状态。</p>
+<p>注意“挂起”和“阻塞”的却别，两种状态都是暂时不能获得CPU的服务，但挂起状态是将进程映像调到外存去了，而阻塞态下进程映像还在内存中。</p>
+<p>有的操作系统会把就绪挂起、阻塞改期分为两个挂起队列，甚至会根据阻塞原因不同再把阻塞挂起进程进一步细分为多个队列。</p>
+
+        <h2 id="调度的三个层次——低级调度"   >
+          <a href="#调度的三个层次——低级调度" class="heading-link"><i class="fas fa-link"></i></a><a href="#调度的三个层次——低级调度" class="headerlink" title="调度的三个层次——低级调度"></a>调度的三个层次——低级调度</h2>
+      <p>**低级调度(进程调度)**，其主要任务是按照某种方法和策略从就绪队列中选取一个进程，将处理机分配给它。</p>
+<p>进程调度是操作系统中<strong>最基本的一种调度</strong>，在一般的操作系统中都必须配置进程调度。</p>
+<p>进程调度的<strong>频率很高</strong>，一般几十毫秒一次。</p>
+
+        <h2 id="三层调度的联系、对比"   >
+          <a href="#三层调度的联系、对比" class="heading-link"><i class="fas fa-link"></i></a><a href="#三层调度的联系、对比" class="headerlink" title="三层调度的联系、对比"></a>三层调度的联系、对比</h2>
+      <div class="table-container"><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">要做什么</th>
+<th align="center">调度发生在什么时候</th>
+<th align="center">发生频率</th>
+<th align="center">对进程状态的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">高级调度(作业调度)</td>
+<td align="center">按照某种规则，从后备队列中选择合适的作业将其调入内存，并为其创建进程</td>
+<td align="center">外存-&gt;内存(面向作业)</td>
+<td align="center">最低</td>
+<td align="center">无-&gt;创建态-&gt;就绪态</td>
+</tr>
+<tr>
+<td align="center">中级调度(内存调度)</td>
+<td align="center">按照某种规则，从挂起队列中选择合适的进程将其数据调回内存</td>
+<td align="center">外存-&gt;内存(面向进程)</td>
+<td align="center">中等</td>
+<td align="center">挂起态-&gt;就绪态(阻塞挂起-&gt;阻塞态)</td>
+</tr>
+<tr>
+<td align="center">低级调度(进程调度)</td>
+<td align="center">按照某种规则，从就绪队列中选择一个进程为其分配处理机</td>
+<td align="center">内存-&gt;CPU</td>
+<td align="center">最高</td>
+<td align="center">就绪态-&gt;运行态</td>
+</tr>
+</tbody></table></div>
+
+        <h1 id="进程调度的时机、切换与过程调度方式"   >
+          <a href="#进程调度的时机、切换与过程调度方式" class="heading-link"><i class="fas fa-link"></i></a><a href="#进程调度的时机、切换与过程调度方式" class="headerlink" title="进程调度的时机、切换与过程调度方式"></a>进程调度的时机、切换与过程调度方式</h1>
+      <ul>
+<li>时机<ul>
+<li>什么时候需要进程调度</li>
+<li>什么时候不能进行进程调度</li>
+</ul>
+</li>
+<li>切换与过程<ul>
+<li>“下一的调度”与“切换”的区别</li>
+<li>进程切换的过程需要做什么？</li>
+</ul>
+</li>
+<li>方式<ul>
+<li>非剥夺调度方式(非抢占式)</li>
+<li>剥夺调度方式(抢占式)</li>
+</ul>
+</li>
+</ul>
+
+        <h2 id="进程调度的时机"   >
+          <a href="#进程调度的时机" class="heading-link"><i class="fas fa-link"></i></a><a href="#进程调度的时机" class="headerlink" title="进程调度的时机"></a>进程调度的时机</h2>
+      <p><strong>进程调度</strong>(低级调度)，就是按照某种算法从就绪队列中选择一个进程为其分配处理机。</p>
+<ul>
+<li>需要进行切换调度与切换的情况<ul>
+<li>当前运行的进程<strong>主动放弃</strong>处理机<ul>
+<li>运行正常终止</li>
+<li>运行过程中发生异常而终止</li>
+<li>进程主动请求阻塞(如等待I/O)</li>
+</ul>
+</li>
+<li>当前运行的进程<strong>被动放弃</strong>处理机<ul>
+<li>分给进程的时间片用完</li>
+<li>有更紧急的事需要处理(如I/O中断)</li>
+<li>有更高优先级的进程进入就绪队列</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>不能进行进程调度与切换的情况<ol>
+<li>在<strong>处理中断的过程中</strong>。中断处理过程复杂，与硬件模切相关，很难做到在中断处理过程中进行进程切换。</li>
+<li>进程在<strong>操作系统内核程序临界区</strong>中。一定是内核程序临界区！！！</li>
+<li>在**原子操作过程中(原语)。原子操作不可中断，要一气呵成(如之前讲过的修改PCB中进程状态标志，并把PCB放到相应队列)。</li>
+</ol>
+</li>
+</ul>
+<p>临界资源：一个时间段内只允许一个进程使用的资源。各进程需要<strong>互斥地</strong>访问临界资源。</p>
+<p>临界区：访问临界资源的那段代码。</p>
+<p><strong>内核程序临界区</strong>一般用来访问<strong>某种内核数据结构</strong>的，比如进程的就绪队列(由各就绪进程的PCB组成)</p>
+<p>如果还没退出临界区(还没解锁)就进行进程调度，但是进程调度相关的程序也需要访问就绪队列，因此又无法顺利进行进程调度。</p>
+<p>内核程序临界区访问的临界资源如果不尽快释放的话，极有可能影响到操作系统内核的其他管理工作。因此在访问内核程序临界区期间不能进行调度与切换。</p>
+<p>在打印机打印完成之前，进程一直处于临界区内，临界资源不会解锁。但打印机又是慢速设备，此时如果一直不允许进程调度的话就会导致CPU一直空闲</p>
+<p>普通临界区访问的临界资源不会直接影响操作系统内核的管理工作。因此在访问普通临界区时可以进行调度与切换。</p>
+
+        <h2 id="进程调度的方式"   >
+          <a href="#进程调度的方式" class="heading-link"><i class="fas fa-link"></i></a><a href="#进程调度的方式" class="headerlink" title="进程调度的方式"></a>进程调度的方式</h2>
+      
+        <h3 id="非剥夺调度方式"   >
+          <a href="#非剥夺调度方式" class="heading-link"><i class="fas fa-link"></i></a><a href="#非剥夺调度方式" class="headerlink" title="非剥夺调度方式"></a>非剥夺调度方式</h3>
+      <p>又称非抢占方式。即，只允许进程主动放弃处理机。在运行过程中即便有更紧迫的任务到达，当前进程依然会继续使用处理机，直到该进程终止或主动要求进入阻塞态。</p>
+<p>实现简单，系统开销小但是无法及时处理紧急任务，适合于早起的批处理系统。</p>
+
+        <h3 id="剥夺调度方式"   >
+          <a href="#剥夺调度方式" class="heading-link"><i class="fas fa-link"></i></a><a href="#剥夺调度方式" class="headerlink" title="剥夺调度方式"></a>剥夺调度方式</h3>
+      <p>又称抢占方式。当一个进程正在处理机上执行时，如果有一个更重要或者更紧迫的进程需要使用处理机，则立即暂停正在执行的进程，将处理机分配给更重要紧迫的那个进程。</p>
+<p>可以优先处理更紧急的进程，也可以实现让各进程按时间片轮流执行的功能(通过时钟中断)。适合于分时操作系统、实时操作系统。</p>
+
+        <h2 id="进程的切换与过程"   >
+          <a href="#进程的切换与过程" class="heading-link"><i class="fas fa-link"></i></a><a href="#进程的切换与过程" class="headerlink" title="进程的切换与过程"></a>进程的切换与过程</h2>
+      <p>“狭义的进程调度”与“进程切换”的区别：</p>
+<p><strong>狭义的进程调度</strong>指的是从就绪队列中<strong>选中一个要运行的进程</strong>。(这个进程可以是刚刚被暂停执行的进程)，<strong>进程切换</strong>是指一个进程让出处理机，由另一个进程占用处理机的过程。</p>
+<p><strong>广义的进程调度</strong>包含了选择一个进程和进程切换两个步骤。</p>
+<p>进程切换的过程主要完成了：</p>
+<ol>
+<li>对原来运行进程各种数据的保存</li>
+<li>对新的进程各种数据的恢复</li>
+</ol>
+<p>(如：程序计数器、程序状态字、各种数据寄存器等处理机现场信息，这些信息一般保存在进程控制块)</p>
+<p>注意：<strong>进程切换是有代价的</strong>，因此如果<strong>过于频繁的</strong>进行进程<strong>调度、切换</strong>，必然会使整个<strong>系统的效率降低</strong>，使系统大部分时间都花在了进程切换上，而真正用于执行进程的时间减少。</p>
+
+        <h1 id="调度算法的评价指标"   >
+          <a href="#调度算法的评价指标" class="heading-link"><i class="fas fa-link"></i></a><a href="#调度算法的评价指标" class="headerlink" title="调度算法的评价指标"></a>调度算法的评价指标</h1>
+      <ul>
+<li>CPU利用率</li>
+<li>系统吞吐量</li>
+<li>周转时间<ul>
+<li>周转时间、平均周转时间</li>
+<li>带权周转时间、平均带权周转时间</li>
+</ul>
+</li>
+<li>等待时间</li>
+<li>响应时间</li>
+</ul>
+
+        <h2 id="CPU利用率"   >
+          <a href="#CPU利用率" class="heading-link"><i class="fas fa-link"></i></a><a href="#CPU利用率" class="headerlink" title="CPU利用率"></a>CPU利用率</h2>
+      <p>由于早期的CPU造价及其昂贵，因此人们会<strong>希望让CPU尽可能多地工作</strong>。</p>
+<p>CPU利用率：指CPU“忙碌”的时间占总时间的比例。</p>
+<p><code>利用率=忙碌的时间/总时间</code></p>
+
+        <h2 id="系统吞吐量"   >
+          <a href="#系统吞吐量" class="heading-link"><i class="fas fa-link"></i></a><a href="#系统吞吐量" class="headerlink" title="系统吞吐量"></a>系统吞吐量</h2>
+      <p>对于计算机来说，希望能用尽可能少的时间处理完尽可能多的作业</p>
+<p>系统吞吐量：单位时间内完成作业的数量</p>
+<p><code>系统吞吐量=总共完成了多少道作业/总共花了多少时间</code></p>
+
+        <h2 id="周转时间"   >
+          <a href="#周转时间" class="heading-link"><i class="fas fa-link"></i></a><a href="#周转时间" class="headerlink" title="周转时间"></a>周转时间</h2>
+      <p>对于计算机的用户来说，他很关心自己的作业从提交到完成花了多少时间。</p>
+<p><strong>周转时间</strong>，是指从<strong>作业被提交给系统开始</strong>，到<strong>作业完成为止</strong>的这段时间间隔。</p>
+<p>它包括四个部分：作业在外存后备队列上等待作业调度(高级调度)的时间、进程在就绪队列上等待进程调度(低级调度)的时间、进程在CPU上执行的时间、进程等待I/O操作完成的时间。后三项在一个作业的整个过程中，可能发生多次。</p>
+<p><code>周转时间=作业完成时间-作业提交时间</code></p>
+<p>对于用户来说，更关心自己的单个作业的周转时间。</p>
+<p><code>平均周转时间=各作业周转时间之和/作业数</code></p>
+<p>对于操作系统来说，更关心系统的整体表现，因此更关心所有作业周转时间的平均值。</p>
+
+        <h2 id="带权周转时间"   >
+          <a href="#带权周转时间" class="heading-link"><i class="fas fa-link"></i></a><a href="#带权周转时间" class="headerlink" title="带权周转时间"></a>带权周转时间</h2>
+      <p><code>带权周转时间=作业周转时间/作业实际运行的时间=(作业完成时间-作业提交时间)/作业实际运行的时间</code></p>
+<p>带权周转时间必然&gt;=1</p>
+<p>带权周转时间与周转时间都是越小越好</p>
+<p>对于周转时间相同的两个作业，实际运行时间长的作业在相同时间内被服务的时间更多，带权周转时间更小，用户满意度更高。</p>
+<p>对于实际运行时间相同的两个作业，周转时间短的带权周转时间更小，用户满意读更高。</p>
+
+        <h2 id="等待时间"   >
+          <a href="#等待时间" class="heading-link"><i class="fas fa-link"></i></a><a href="#等待时间" class="headerlink" title="等待时间"></a>等待时间</h2>
+      <p>计算机的用户希望自己的作业尽可能少的等待处理机</p>
+<p><strong>等待时间</strong>，指进程/作业<strong>处于等待处理机状态时间之和</strong>，等待时间越长，用户满意度越低。</p>
+<p>作业调入内存后，<strong>建立对应的进程</strong>。这个进程会被CPU服务、会被I/O设备服务，当然也会有<strong>等待被服务</strong>的时候。</p>
+<p>对于<strong>进程</strong>来说，等待时间就是指进程建立后<strong>等待被服务的时间之和</strong>，等待I/O完成的期间其实进程也是在被服务的，所以不计入等待时间。</p>
+<p>对于<strong>作业</strong>来说，不仅要考虑<strong>建立进程后的等待时间，还要加上作业在外存后备队列中等待的时间</strong>。</p>
+<p>一个作业总共需要被CPU服务多久，被I/O设备服务多久一般是确定不变的，因此调度算法其实只会影响作业/进程的等待时间。当然，与前面指标类似，也有“<strong>平均等待时间</strong>”来评价整体性能。</p>
+
+        <h2 id="响应时间"   >
+          <a href="#响应时间" class="heading-link"><i class="fas fa-link"></i></a><a href="#响应时间" class="headerlink" title="响应时间"></a>响应时间</h2>
+      <p>对于计算机用户来说，会希望自己的提交的请求(比如通过键盘输入了一个调试命令)尽早地开始被系统服务、回应。</p>
+<p><strong>响应时间</strong>，指从用户<strong>提交请求</strong>到<strong>首次产生响应</strong>所用的时间。</p>
+
+        <h2 id="调度算法"   >
+          <a href="#调度算法" class="heading-link"><i class="fas fa-link"></i></a><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h2>
+      <ul>
+<li><p>先来先服务(FCFS)</p>
+</li>
+<li><p>短作业优先(SJF)</p>
+</li>
+<li><p>高响应比优先(HRRN)</p>
+</li>
+<li><p>各种调度算法的学习思路</p>
+<ol>
+<li>算法思想</li>
+<li>算法规则</li>
+<li>这种调度算法是用于 作业调度 还是 进程调度？</li>
+<li>抢占式？非抢占式？</li>
+<li>优点和缺点</li>
+<li>是否会导致<strong>饥饿</strong>(某进程/作业长期得不到服务)</li>
+</ol>
+</li>
+</ul>
+
+        <h2 id="先来先服务-FCFS"   >
+          <a href="#先来先服务-FCFS" class="heading-link"><i class="fas fa-link"></i></a><a href="#先来先服务-FCFS" class="headerlink" title="先来先服务(FCFS)"></a>先来先服务(FCFS)</h2>
+      <ul>
+<li>算法思想<ul>
+<li>主要从“公平”的角度考虑</li>
+</ul>
+</li>
+<li>算法规则<ul>
+<li>按照作业/进程到达的先后顺序进行服务</li>
+</ul>
+</li>
+<li>用于作业/进程调度<ul>
+<li>用于作业调度时，考虑的是哪个作业先到达后备队列；用于进程调度时，考虑的是哪个进程先到达就绪队列</li>
+</ul>
+</li>
+<li>是否可抢占？<ul>
+<li>非抢占式的算法</li>
+</ul>
+</li>
+<li>优缺点<ul>
+<li>优点：公平、算法实现简单</li>
+<li>缺点：排在长作业(进程)后面的短作业需要等待很长时间，带权周转时间很大，对短作业来说用户体验不好。</li>
+</ul>
+</li>
+<li>是否会导致饥饿<ul>
+<li>不会</li>
+</ul>
+</li>
+</ul>
+
+        <h2 id="短作业优先-SJF"   >
+          <a href="#短作业优先-SJF" class="heading-link"><i class="fas fa-link"></i></a><a href="#短作业优先-SJF" class="headerlink" title="短作业优先(SJF)"></a>短作业优先(SJF)</h2>
+      <ul>
+<li>算法思想<ul>
+<li>追求最少的平均等待时间，最少的平均周转时间、最少的平均带权周转时间</li>
+</ul>
+</li>
+<li>算法规则<ul>
+<li>最短的作业/进程优先得到服务(所谓“最短”，是指要求服务时间最短)</li>
+</ul>
+</li>
+<li>用于作业/进程调度<ul>
+<li>即可用于作业调度，也可用于进程调度。用于进程调度时称为“短进程优先(SPF)算法”</li>
+</ul>
+</li>
+<li>是否可抢占<ul>
+<li>SJF和SPF是<strong>非抢占</strong>的算法。但是<strong>也有抢占式的版本——最短剩余时间优先算法(SRTN)</strong></li>
+</ul>
+</li>
+<li>优缺点<ul>
+<li>优点：“最短的”平均等待时间、平均周转时间</li>
+<li>缺点“不公平。<strong>对短作业有利，对长作业不利</strong>。可能产生<strong>饥饿现象</strong>。另外，作业/进程的运行时间是由用户提供的，并不一定真实，不一定能做到真正的短作业优先。</li>
+</ul>
+</li>
+<li>是否会导致饥饿<ul>
+<li>会。如果源源不断地有短作业/进程到来，可能使长作业/进程长时间得不到服务，产生“<strong>饥饿</strong>”现象。如果一直得不到服务，则称为“<strong>饿死</strong>”。</li>
+</ul>
+</li>
+</ul>
+<p>最短剩余时间优先算法：每当有进程加入<strong>就绪队列改变时就需要调度</strong>，如果新到达的进程<strong>剩余时间</strong>比当前运行的进程剩余时间<strong>更短</strong>，则由新进程<strong>抢占</strong>处理机，当前运行进程重新回到就绪队列。另外，当一个<strong>进程完成时也需要调度</strong>。</p>
+<ul>
+<li>几个小细节：<ol>
+<li>如果题目中<strong>未特别说明</strong>，所提到的“短作业/进程优先算法”<strong>默认</strong>是<strong>非抢占式</strong>的。</li>
+<li>很多书上会说“SJF调度算法的平均等待时间、平均周转时间最少”。严格来说，这个表述是错误的，不严谨的。短剩余时间优先算法得到的平均等待时间、平均周转时间还要更少。应该加上一个条件“在<strong>所有进程同时可运行</strong>时”，采用SJF调度算法的平均等待时间、平均周转时间最少；或者说“在<strong>所有进程都几乎同时到达</strong>时，采用SJF调度算法的平均等待时间、平均周转时间最少”；如果不加上述前提条件，则应该说“<strong>抢占式的</strong>短作业/进程优先调度算法(<strong>最短剩余时间优先</strong>，SNRT算法)的平均等待时间、平均周转时间最少”</li>
+<li>虽然严格来说，SJF的平均等待时间、平均周转时间并不一定最少，但相比于其他算法(如FCFS)，SJF依然可以获得较少的平均等待时间、平均周转时间。</li>
+<li>如果选择题中遇到“SJF算法的平均等待时间、平均周转时间最少”的选线，那最好判断其他选项是不是有很明显的错误，如果没有更合适的选项，那也应该选择该选项。</li>
+</ol>
+</li>
+</ul>
+
+        <h2 id="对FCFS和SJF两种算法的思考"   >
+          <a href="#对FCFS和SJF两种算法的思考" class="heading-link"><i class="fas fa-link"></i></a><a href="#对FCFS和SJF两种算法的思考" class="headerlink" title="对FCFS和SJF两种算法的思考"></a>对FCFS和SJF两种算法的思考</h2>
+      <p>FCFS算法是在每次调度的时候选择一个等待时间最长的作业(进程)为其服务。但是没有考虑到作业的运行时间，因此导致了对短作业不友好的问题</p>
+<p>SJF算法是选择一个执行时间最短的作业为其服务。但是又完全不考虑各个作业的等待时间，因此导致了对长作业不友好的问题，甚至还会造成饥饿问题。</p>
+
+        <h2 id="高响应比优先-HRRN"   >
+          <a href="#高响应比优先-HRRN" class="heading-link"><i class="fas fa-link"></i></a><a href="#高响应比优先-HRRN" class="headerlink" title="高响应比优先(HRRN)"></a>高响应比优先(HRRN)</h2>
+      <ul>
+<li>算法思想<ul>
+<li>要综合考虑作业/进程的等待时间和要求服务的时间</li>
+</ul>
+</li>
+<li>算法规则<ul>
+<li>在每次调度时先计算各个作业/进程的<strong>响应比</strong>，选择<strong>响应比最高的</strong>作业/进程为其服务</li>
+<li><code>响应比=(等待时间+要求服务时间)/要求服务时间</code></li>
+<li>响应比必然&gt;=1</li>
+</ul>
+</li>
+<li>用于作业/进程调度<ul>
+<li>也可用于进程调度</li>
+</ul>
+</li>
+<li>是否可抢占？<ul>
+<li><strong>非抢占式</strong>的算法。因此只有当前运行的作业/进程主动放弃处理机时，才需要调度，才需要计算响应比。</li>
+</ul>
+</li>
+<li>优缺点<ul>
+<li>综合考虑了等待时间和运行时间(要求服务时间)</li>
+<li>等待时间相同时，要求服务时间短的优先(SJF的优点)</li>
+<li>要求服务时间相同时，等待时间长的优先(FCFS的优点)</li>
+<li>对于长作业来说，随着等待时间越来越久，其响应比也会越来越大，从而避免了长作业饥饿的问题</li>
+</ul>
+</li>
+<li>是否会导致饥饿<ul>
+<li>不会</li>
+</ul>
+</li>
+</ul>
+<p>高响应比优先算法：<strong>非抢占式</strong>的调度算法，只有当前运行的进程<strong>主动放弃CPU时</strong>(正常/异步完成，或主动阻塞)，才需要进程调度，调度时<strong>计算所有就绪进程的响应比，选响应比最高的</strong>进程上处理机。</p>
+<hr>
+<p>这几种算法主要关心对用户的公平性、平均周转时间、平均等待时间等评价系统整体性能的指标，但是不关心“响应时间”，也并不区分任务的紧急成都，因此对于用户来说，交换性很糟糕。因此这三种算法一般适合用于<strong>早起的批处理系统</strong>，当然，FCFS算法也常结合其他的算法使用，在现在也扮演着很重要的角色。</p>
+
+        <h1 id="调度算法-1"   >
+          <a href="#调度算法-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#调度算法-1" class="headerlink" title="调度算法"></a>调度算法</h1>
+      <ul>
+<li><p>时间片轮转调度算法(RR)</p>
+</li>
+<li><p>优先级调度算法</p>
+</li>
+<li><p>多级反馈队列调度算法</p>
+</li>
+<li><p>各种调度算法的学习思路</p>
+<ol>
+<li>算法思路</li>
+<li>算法规则</li>
+<li>这种调度算法是用于 作业调度 还是 进程调度</li>
+<li>抢占式？非抢占式？</li>
+</ol>
+</li>
+</ul>
+
+        <h2 id="时间片轮转-RR"   >
+          <a href="#时间片轮转-RR" class="heading-link"><i class="fas fa-link"></i></a><a href="#时间片轮转-RR" class="headerlink" title="时间片轮转(RR)"></a>时间片轮转(RR)</h2>
+      <ul>
+<li>算法思想<ul>
+<li>公平地、轮流地为各个进程服务，让每个进程在一定时间间隔内都可以得到响应</li>
+</ul>
+</li>
+<li>算法规则<ul>
+<li>按照各进程到达就绪队列的顺序，轮流让各个进程执行一个<strong>时间片</strong>。若进程未在一个时间片内执行完，则剥夺处理机，将进程重新放到就绪队列对位重新排队。</li>
+</ul>
+</li>
+<li>用于作业/进程调度<ul>
+<li>用于进程调度(只有作业放入内存建立了相应的进程后，才能被分配处理机时间片)</li>
+</ul>
+</li>
+<li>是否可抢占？<ul>
+<li>若进程未能在时间片内运行完，将被强心剥夺处理机使用权，因此时间片轮转调度算法属于<strong>抢占式</strong>算法。由时钟装置发出<strong>时钟中断</strong>来通知CPU时间片已到。</li>
+</ul>
+</li>
+<li>优缺点<ul>
+<li>优点：公平；响应快，适用于分时操作系统。</li>
+<li>缺点：由于高频率的进程切换，因此有一定开销；不区分任务的紧急程度。</li>
+</ul>
+</li>
+<li>是否会导致饥饿<ul>
+<li>不会</li>
+</ul>
+</li>
+</ul>
+<p>常用于分时操作系统，更注重“响应时间”。</p>
+<p>如果<strong>时间片太大</strong>，使得每个进程都可以在一个时间片内就完成，则时间片轮转调度算法将<strong>退化为先来先服务</strong>调度算法，并且<strong>会增大进程响应时间</strong>。因此<strong>时间片不能太大</strong>。</p>
+<p>另一方面，进程调度、切换是有时间代价的(保存、恢复运行环境)，因此如果<strong>时间片太小</strong>，会导致<strong>进程切换过于频繁</strong>，系统会话大量的时间来处理进程切换，从而导致实际用于进程执行的时间比例减少。可见<strong>时间片也不能太小</strong>。</p>
+
+        <h2 id="优先级调度算法"   >
+          <a href="#优先级调度算法" class="heading-link"><i class="fas fa-link"></i></a><a href="#优先级调度算法" class="headerlink" title="优先级调度算法"></a>优先级调度算法</h2>
+      <ul>
+<li>算法思想<ul>
+<li>随着计算机的发展，特别是实时操作系统的出现，越来越多的应用场景需要根据任务的紧急程度来决定处理顺序。</li>
+</ul>
+</li>
+<li>算法规则<ul>
+<li>每个作业/进程有各自的优先级，调度时选择优先级最高的作业/进程。</li>
+</ul>
+</li>
+<li>用于作业/进程调度<ul>
+<li>即可用于作业调度，也可用于进程调度。甚至，还会用于在之后会学习的I/O调度中。</li>
+</ul>
+</li>
+<li>是否可抢占<ul>
+<li>抢占式、非抢占式都有。做题时的区别在于：非抢占式只需在进程主动放弃处理机时进行调度即可，而抢占式还需在就绪队列变化时，检查是否会发生抢占。</li>
+</ul>
+</li>
+<li>优缺点<ul>
+<li>优点：用优先级区分紧急程度、重要程度，适用于实时操作系统。可灵活地调整对各种作业/进程的偏好程度。</li>
+<li>缺点：若源源不断地有高优先级进程到来，则可能导致饥饿。</li>
+</ul>
+</li>
+<li>是否会导致饥饿<ul>
+<li>会</li>
+</ul>
+</li>
+</ul>
+<p>抢占式的优先级调度算法：每次调度时选择<strong>当前已到达</strong>且<strong>优先级最高</strong>地进程。当前进程<strong>主动放弃处理机时</strong>发生调度。另外，当<strong>就绪队列发生改变时</strong>也需要检查是否会发生抢占。</p>
+<p>就绪队列未必只有一个，可以按照不同优先级来组织。另外，也可以把优先级高的进程排在更靠近队头的位置。</p>
+<p>根据优先级是否可以动态改变，可将优先级分为<strong>静态优先级</strong>和<strong>动态优先级</strong>两种。</p>
+<ul>
+<li><p>静态优先级：创建进程时确定，之后一直不变。</p>
+</li>
+<li><p>动态优先级：创建进程时有一个初始值，之后会根据情况动态地调整优先级。</p>
+</li>
+<li><p>通常</p>
+<ul>
+<li>系统进程优先级<strong>高于</strong>用户进程</li>
+<li>前台进程优先级<strong>高于</strong>后台进程</li>
+<li>操作系统更<strong>偏好I/O型进程(或称I/O繁忙型进程)</strong></li>
+</ul>
+</li>
+</ul>
+<p>注：与I/O型进程相对的是<strong>计算型进程(活成CPU繁忙型进程)</strong></p>
+<p>I/O设备和CPU可以并行工作。如果优先让I/O繁忙型进程优先运行的话，则越有可能让I/O设备尽早地投入工作，则资源利用率、系统吞吐量都会得到提升。</p>
+<ul>
+<li>可以从追求公平、提升资源利用率等角度考虑<ul>
+<li>如果某进程在就绪队列中等待了很长时间，则可以适当提升其优先级</li>
+<li>如果某进程占用处理机运行了很长时间，则可适当降低其优先级</li>
+<li>如果发现一个进程频繁地进行I/O操作，则可适当提升其优先级</li>
+</ul>
+</li>
+</ul>
+
+        <h2 id="多级反馈队列调度算法"   >
+          <a href="#多级反馈队列调度算法" class="heading-link"><i class="fas fa-link"></i></a><a href="#多级反馈队列调度算法" class="headerlink" title="多级反馈队列调度算法"></a>多级反馈队列调度算法</h2>
+      <ul>
+<li>算法思想<ul>
+<li>对其他调度算法的这种权衡</li>
+</ul>
+</li>
+<li>算法规则<ol>
+<li>设置多级就绪队列，各队列优先级从高到低，时间片从小到大</li>
+<li>新进程到达时先进入第1级队列，按FCFS原则排队等待被分配时间片，若用完时间片进程还未结束，则进程进入下一级队列队尾。如果此时已经是在最下级的队列，则重新放回该队列队尾。</li>
+<li>只有第K级队列为空时，才会为K+1级队头的进程分配时间片</li>
+</ol>
+</li>
+<li>用于作业/进程调度<ul>
+<li>用于进程调度</li>
+</ul>
+</li>
+<li>是否可抢占？<ul>
+<li>抢占式的算法。在k级队列的进程运行过程中，若更上级的队列(1~k-1级)中进入了一个新进程，则由于新进程处于优先级更高的队列中，因此新进程会抢占处理机，原来运行的进程放回k级队列队尾。</li>
+</ul>
+</li>
+<li>优缺点<ul>
+<li>对各类型进程相对公平(FCFS的优点)</li>
+<li>每个新到达的进程都可以很快就得到响应(RR的优点)</li>
+<li>短进程只用较少的时间就可完成(SPF的优点)</li>
+<li>不必实现估计进程的运行时间(避免用户作假)</li>
+<li>可灵活地调整对各类进程的偏好程度，比如CPU密集型进程、I/O密集型进程(拓展：可以将因I/O而阻塞的进程重新放回原队列，这样I/O型进程就可以保持较高优先级)</li>
+</ul>
+</li>
+<li>是否会导致饥饿<ul>
+<li>会</li>
+</ul>
+</li>
+</ul>
+<p>设置多级就绪队列，各级队列<strong>优先级</strong>从<strong>高到底</strong>，<strong>时间片</strong>从<strong>小到大</strong></p>
+<p><strong>新进程</strong>到达时<strong>先进入第1级</strong>队列，按<strong>FCFS原则</strong>排队等待被分配时间片。若用完时间片进程<strong>还未结束</strong>，则进程<strong>进入下一级队列队尾</strong>。如果此时<strong>已经在最下级</strong>的队列，则<strong>重新放回</strong>最下级队列队尾。</p>
+<p>只有第<strong>k级队列为空</strong>时，才会<strong>为k+1级</strong>队头的进程<strong>分配时间片</strong>。</p>
+<p>被抢占处理机的进程重新放回原队列队尾。</p>
+<hr>
+<p>比起早期的批处理操作系统来说，由于计算机造价大幅降低，因此之后出现的交互式操作系统(包括分时操作系统、实时操作系统等)更注重系统的响应时间、公平性、平衡性等指标。而这几种算法恰好也能较好地满足交互式系统的需求。因此这三种算法适合用于<strong>交互式</strong>系统。(比如UNIX使用的就是多级反馈队列调度算法)</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://www.gddfeng.com">gddFeng</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://www.gddfeng.com/Major-%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E3%80%90%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E3%80%912-2-%E8%B0%83%E5%BA%A6/">http://www.gddfeng.com/Major-%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E3%80%90%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E3%80%912-2-%E8%B0%83%E5%BA%A6/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.gddfeng.com/tags/%E8%80%83%E7%A0%94%E5%AD%A6%E4%B9%A0/">考研学习</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.gddfeng.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">计算机操作系统</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/Major-%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E3%80%90%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E3%80%912-3-%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E3%80%81%E4%BA%92%E6%96%A5/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">【计算机操作系统】2-3-进程同步、互斥</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/Major-%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E3%80%90%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E3%80%912-1-%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/"><span class="paginator-prev__text">【计算机操作系统】2-1-进程与线程</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E6%9C%BA%E8%B0%83%E5%BA%A6%E7%9A%84%E6%A6%82%E5%BF%B5%E3%80%81%E5%B1%82%E6%AC%A1"><span class="toc-number">1.</span> <span class="toc-text">
+          处理机调度的概念、层次</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E5%BA%A6%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text">
+          调度的基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E5%BA%A6%E7%9A%84%E4%B8%89%E4%B8%AA%E5%B1%82%E6%AC%A1%E2%80%94%E2%80%94%E9%AB%98%E7%BA%A7%E8%B0%83%E5%BA%A6"><span class="toc-number">1.2.</span> <span class="toc-text">
+          调度的三个层次——高级调度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E5%BA%A6%E7%9A%84%E4%B8%89%E4%B8%AA%E5%B1%82%E6%AC%A1%E2%80%94%E2%80%94%E4%B8%AD%E7%BA%A7%E8%B0%83%E5%BA%A6"><span class="toc-number">1.3.</span> <span class="toc-text">
+          调度的三个层次——中级调度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86%EF%BC%9A%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%8C%82%E8%B5%B7%E7%8A%B6%E6%80%81%E4%B8%8E%E4%B8%83%E7%8A%B6%E6%80%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.4.</span> <span class="toc-text">
+          补充知识：进程的挂起状态与七状态模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E5%BA%A6%E7%9A%84%E4%B8%89%E4%B8%AA%E5%B1%82%E6%AC%A1%E2%80%94%E2%80%94%E4%BD%8E%E7%BA%A7%E8%B0%83%E5%BA%A6"><span class="toc-number">1.5.</span> <span class="toc-text">
+          调度的三个层次——低级调度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E5%B1%82%E8%B0%83%E5%BA%A6%E7%9A%84%E8%81%94%E7%B3%BB%E3%80%81%E5%AF%B9%E6%AF%94"><span class="toc-number">1.6.</span> <span class="toc-text">
+          三层调度的联系、对比</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%9A%84%E6%97%B6%E6%9C%BA%E3%80%81%E5%88%87%E6%8D%A2%E4%B8%8E%E8%BF%87%E7%A8%8B%E8%B0%83%E5%BA%A6%E6%96%B9%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">
+          进程调度的时机、切换与过程调度方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%9A%84%E6%97%B6%E6%9C%BA"><span class="toc-number">2.1.</span> <span class="toc-text">
+          进程调度的时机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">2.2.</span> <span class="toc-text">
+          进程调度的方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E5%89%A5%E5%A4%BA%E8%B0%83%E5%BA%A6%E6%96%B9%E5%BC%8F"><span class="toc-number">2.2.1.</span> <span class="toc-text">
+          非剥夺调度方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%A5%E5%A4%BA%E8%B0%83%E5%BA%A6%E6%96%B9%E5%BC%8F"><span class="toc-number">2.2.2.</span> <span class="toc-text">
+          剥夺调度方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%87%E6%8D%A2%E4%B8%8E%E8%BF%87%E7%A8%8B"><span class="toc-number">2.3.</span> <span class="toc-text">
+          进程的切换与过程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E7%9A%84%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="toc-number">3.</span> <span class="toc-text">
+          调度算法的评价指标</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CPU%E5%88%A9%E7%94%A8%E7%8E%87"><span class="toc-number">3.1.</span> <span class="toc-text">
+          CPU利用率</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%90%9E%E5%90%90%E9%87%8F"><span class="toc-number">3.2.</span> <span class="toc-text">
+          系统吞吐量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%A8%E8%BD%AC%E6%97%B6%E9%97%B4"><span class="toc-number">3.3.</span> <span class="toc-text">
+          周转时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%A6%E6%9D%83%E5%91%A8%E8%BD%AC%E6%97%B6%E9%97%B4"><span class="toc-number">3.4.</span> <span class="toc-text">
+          带权周转时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%89%E5%BE%85%E6%97%B6%E9%97%B4"><span class="toc-number">3.5.</span> <span class="toc-text">
+          等待时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E6%97%B6%E9%97%B4"><span class="toc-number">3.6.</span> <span class="toc-text">
+          响应时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="toc-number">3.7.</span> <span class="toc-text">
+          调度算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E6%9D%A5%E5%85%88%E6%9C%8D%E5%8A%A1-FCFS"><span class="toc-number">3.8.</span> <span class="toc-text">
+          先来先服务(FCFS)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%AD%E4%BD%9C%E4%B8%9A%E4%BC%98%E5%85%88-SJF"><span class="toc-number">3.9.</span> <span class="toc-text">
+          短作业优先(SJF)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9FCFS%E5%92%8CSJF%E4%B8%A4%E7%A7%8D%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%9D%E8%80%83"><span class="toc-number">3.10.</span> <span class="toc-text">
+          对FCFS和SJF两种算法的思考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AB%98%E5%93%8D%E5%BA%94%E6%AF%94%E4%BC%98%E5%85%88-HRRN"><span class="toc-number">3.11.</span> <span class="toc-text">
+          高响应比优先(HRRN)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95-1"><span class="toc-number">4.</span> <span class="toc-text">
+          调度算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E7%89%87%E8%BD%AE%E8%BD%AC-RR"><span class="toc-number">4.1.</span> <span class="toc-text">
+          时间片轮转(RR)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E5%85%88%E7%BA%A7%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="toc-number">4.2.</span> <span class="toc-text">
+          优先级调度算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E7%BA%A7%E5%8F%8D%E9%A6%88%E9%98%9F%E5%88%97%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="toc-number">4.3.</span> <span class="toc-text">
+          多级反馈队列调度算法</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/stun-logo.svg" alt="avatar"></div><p class="sidebar-ov-author__text">gddFeng</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2418180738&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">24</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">7</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021~2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>gddFeng All Rights Reserved</span><span class="footer__devider">|</span><span>冀2021001072号</span></div><div>有英勇也有温柔。</div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

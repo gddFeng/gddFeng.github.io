@@ -1,0 +1,373 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="第二周实验，通过static使用静态成员变量，创建时使用指针创建，实现在任何地方通过该静态成员函数获得对象指针都是指向同一个对象。有待修正！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【C++】单例模式编程实验">
+<meta property="og:url" content="http://www.gddfeng.com/Program-%E3%80%90c-%E3%80%91%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AE%9E%E9%AA%8C/index.html">
+<meta property="og:site_name" content="孤独的風">
+<meta property="og:description" content="第二周实验，通过static使用静态成员变量，创建时使用指针创建，实现在任何地方通过该静态成员函数获得对象指针都是指向同一个对象。有待修正！">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-06T15:24:50.000Z">
+<meta property="article:modified_time" content="2021-10-07T02:01:50.000Z">
+<meta property="article:author" content="gddFeng">
+<meta property="article:tag" content="编程语言">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary"><title>【C++】单例模式编程实验 | 孤独的風</title><link ref="canonical" href="http://www.gddfeng.com/Program-%E3%80%90c-%E3%80%91%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AE%9E%E9%AA%8C/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/课堂笔记/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">课堂笔记</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">编程语言</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/编程语言/c/"><span class="header-nav-submenu-item__text">C++</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">考研学习</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/考研学习/计算机网络/"><span class="header-nav-submenu-item__text">计算机网络</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/考研学习/计算机操作系统/"><span class="header-nav-submenu-item__text">计算机操作系统</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">渗透测试</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/渗透测试/SQL注入/"><span class="header-nav-submenu-item__text">SQL注入</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">【C++】单例模式编程实验</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-10-06</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2021-10-07</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">690</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">4分</span></span></div></header><div class="post-body">
+        <h1 id="任务"   >
+          <a href="#任务" class="heading-link"><i class="fas fa-link"></i></a><a href="#任务" class="headerlink" title="任务"></a>任务</h1>
+      <p>任务：单件模式是一种用于确保整个应用程序中只有一个类实例的程序设<br>计方法。</p>
+<p>请编写程序，设计并实现单例类，以完成以下功能：</p>
+<ol>
+<li>外部不能够任意实例化该类的对象；</li>
+<li>只能够通过该类的静态成员函数 Singleton::GetInstance()获得该类的唯一<br>对象，换言之，在任何地方通过该静态成员函数获得对象指针都是指向同一个<br>对象。</li>
+<li>设计该类的成员变量 string name 以及相应的成员函数（set/get 函数）对<br>对象的唯一性进行验证。</li>
+</ol>
+
+        <h1 id="解答"   >
+          <a href="#解答" class="heading-link"><i class="fas fa-link"></i></a><a href="#解答" class="headerlink" title="解答"></a>解答</h1>
+      
+        <h2 id="main-cpp"   >
+          <a href="#main-cpp" class="heading-link"><i class="fas fa-link"></i></a><a href="#main-cpp" class="headerlink" title="main.cpp"></a>main.cpp</h2>
+      <figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.cpp</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;Singleton.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Singleton *s = Singleton::<span class="built_in">GetInstance</span>();</span><br><span class="line">    s-&gt;<span class="built_in">SetName</span>(<span class="string">&quot;Bob&quot;</span>);<span class="comment">//题目给定</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">Singleton * t = Singleton:: <span class="built_in">GetInstance</span>();</span><br><span class="line">t-&gt;<span class="built_in">SetName</span>(<span class="string">&quot;Alice&quot;</span>);</span><br><span class="line"><span class="built_in">fun</span>();</span><br><span class="line">cout&lt;&lt;t-&gt;<span class="built_in">GetName</span>()&lt;&lt;endl;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;<span class="comment">//题目给定</span></span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="Singleton-h"   >
+          <a href="#Singleton-h" class="heading-link"><i class="fas fa-link"></i></a><a href="#Singleton-h" class="headerlink" title="Singleton.h"></a>Singleton.h</h2>
+      <figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">static</span> Singleton *<span class="title">GetInstance</span><span class="params">()</span></span>;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">SetName</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *s)</span></span>;</span><br><span class="line">        <span class="function">string <span class="title">GetName</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        <span class="built_in">Singleton</span>();</span><br><span class="line">        <span class="keyword">static</span> Singleton *_instance;</span><br><span class="line">        string name;</span><br><span class="line">&#125;;<span class="comment">//类的定义，string类型必须要引用string</span></span><br><span class="line"></span><br><span class="line">Singleton* Singleton::_instance=<span class="literal">nullptr</span>;</span><br><span class="line"><span class="comment">//类外初始化</span></span><br><span class="line"></span><br><span class="line">Singleton::<span class="built_in">Singleton</span>()&#123;&#125;</span><br><span class="line"><span class="comment">//构造函数</span></span><br><span class="line"></span><br><span class="line"><span class="function">Singleton* <span class="title">Singleton::GetInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(_instance == <span class="literal">nullptr</span>)</span><br><span class="line">        _instance = <span class="keyword">new</span> Singleton;</span><br><span class="line">    <span class="keyword">return</span> _instance;</span><br><span class="line">&#125;<span class="comment">//查找_instance是否创建，没创建新建一个，创建了返回地址</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Singleton::SetName</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* s)</span></span>&#123;</span><br><span class="line">    name = s;</span><br><span class="line">&#125;<span class="comment">//更改类中name</span></span><br><span class="line"></span><br><span class="line"><span class="function">string <span class="title">Singleton::GetName</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;<span class="comment">//获取name</span></span><br></pre></td></tr></table></div></figure>
+
+
+        <h1 id="出现过问题"   >
+          <a href="#出现过问题" class="heading-link"><i class="fas fa-link"></i></a><a href="#出现过问题" class="headerlink" title="出现过问题"></a>出现过问题</h1>
+      
+        <h2 id="判断写成了赋值"   >
+          <a href="#判断写成了赋值" class="heading-link"><i class="fas fa-link"></i></a><a href="#判断写成了赋值" class="headerlink" title="判断写成了赋值"></a>判断写成了赋值</h2>
+      <p>if判断中的<code>等于</code>判断<code>==</code>，失手写成了赋值<code>=</code></p>
+
+        <h2 id="错误的引用string"   >
+          <a href="#错误的引用string" class="heading-link"><i class="fas fa-link"></i></a><a href="#错误的引用string" class="headerlink" title="错误的引用string"></a>错误的引用string</h2>
+      <p>报错：<code>声明与 &quot;&lt;error-type&gt; Singleton::GetName()&quot; (已声明 所在行数:27，所属文件:&quot;C:\USERS\FENG\DESKTOP\C++\第二次实验\Singleton.h&quot;) 不兼容</code></p>
+<p>在<code>Singleton.h</code>头文件中没有包含<code>&lt;string&gt;</code>和<code>using namespace std; </code></p>
+
+        <h2 id="没有进行类外初始化！"   >
+          <a href="#没有进行类外初始化！" class="heading-link"><i class="fas fa-link"></i></a><a href="#没有进行类外初始化！" class="headerlink" title="没有进行类外初始化！"></a>没有进行类外初始化！</h2>
+      <p>报错：</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Feng\AppData\Local\Temp\ccfhC9e4.o:main.cpp:(.rdata$.refptr._ZN9Singleton9_instanceE[.refptr._ZN9Singleton9_instanceE]+0x0): undefined reference to `Singleton::_instance&#x27;</span><br><span class="line">collect2.exe: error: ld returned 1 exit status</span><br></pre></td></tr></table></div></figure>
+
+<p><strong>一定要进行类外初始化！</strong></p>
+<p><code>static</code>静态成员一定要进行类外初始化！</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Singleton* Singleton::_instance=<span class="literal">nullptr</span>;</span><br></pre></td></tr></table></div></figure>
+
+
+        <h3 id="为什么一定要初始化"   >
+          <a href="#为什么一定要初始化" class="heading-link"><i class="fas fa-link"></i></a><a href="#为什么一定要初始化" class="headerlink" title="为什么一定要初始化"></a>为什么一定要初始化</h3>
+      <p><code>static</code>数据成员在类外定义和初始化是为了<strong>保证只被定义和初始化一次</strong>,这样编译器就不必考虑类的函数里面第一个对<code>static</code>变量的<code>=</code>操作是赋值还是初始化了。 <code>static</code> <code>const</code> <code>int</code>可以在类里面初始化，是因为它既然是<code>const</code>的，那程序就不会再去试图初始化了。</p>
+
+        <h3 id="为什么一定要类外"   >
+          <a href="#为什么一定要类外" class="heading-link"><i class="fas fa-link"></i></a><a href="#为什么一定要类外" class="headerlink" title="为什么一定要类外"></a>为什么一定要类外</h3>
+      <p>因为静态成员属于整个类，而不属于某个对象，如果在类内初始化，每次新建对象都会创建一个静态成员，导致每个对象都包含该静态成员，这是矛盾的！</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://www.gddfeng.com">gddFeng</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://www.gddfeng.com/Program-%E3%80%90c-%E3%80%91%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AE%9E%E9%AA%8C/">http://www.gddfeng.com/Program-%E3%80%90c-%E3%80%91%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%AE%9E%E9%AA%8C/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.gddfeng.com/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.gddfeng.com/tags/c/">C++</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/Program-%E3%80%90c-%E3%80%91%E7%B1%BBpoint%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">【C++】类Point的设计与实现</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/Program-%E3%80%90c-%E3%80%91%E5%BC%95%E7%94%A8%E4%BA%A4%E6%8D%A2%E5%AE%9E%E8%B7%B5%E4%BD%9C%E4%B8%9A/"><span class="paginator-prev__text">【C++】引用交换实践作业</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1"><span class="toc-number">1.</span> <span class="toc-text">
+          任务</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%A3%E7%AD%94"><span class="toc-number">2.</span> <span class="toc-text">
+          解答</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#main-cpp"><span class="toc-number">2.1.</span> <span class="toc-text">
+          main.cpp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Singleton-h"><span class="toc-number">2.2.</span> <span class="toc-text">
+          Singleton.h</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%BA%E7%8E%B0%E8%BF%87%E9%97%AE%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">
+          出现过问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E5%86%99%E6%88%90%E4%BA%86%E8%B5%8B%E5%80%BC"><span class="toc-number">3.1.</span> <span class="toc-text">
+          判断写成了赋值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E7%9A%84%E5%BC%95%E7%94%A8string"><span class="toc-number">3.2.</span> <span class="toc-text">
+          错误的引用string</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B2%A1%E6%9C%89%E8%BF%9B%E8%A1%8C%E7%B1%BB%E5%A4%96%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%81"><span class="toc-number">3.3.</span> <span class="toc-text">
+          没有进行类外初始化！</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%80%E5%AE%9A%E8%A6%81%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">3.3.1.</span> <span class="toc-text">
+          为什么一定要初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%80%E5%AE%9A%E8%A6%81%E7%B1%BB%E5%A4%96"><span class="toc-number">3.3.2.</span> <span class="toc-text">
+          为什么一定要类外</span></a></li></ol></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/stun-logo.svg" alt="avatar"></div><p class="sidebar-ov-author__text">gddFeng</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2418180738&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">24</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">7</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021~2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>gddFeng All Rights Reserved</span><span class="footer__devider">|</span><span>冀2021001072号</span></div><div>有英勇也有温柔。</div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>

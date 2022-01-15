@@ -1,0 +1,917 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="计算机网络随堂笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络随堂笔记">
+<meta property="og:url" content="http://www.gddfeng.com/notebooks-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.html">
+<meta property="og:site_name" content="孤独的風">
+<meta property="og:description" content="计算机网络随堂笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-26T08:40:16.000Z">
+<meta property="article:modified_time" content="2021-09-30T08:40:16.000Z">
+<meta property="article:author" content="gddFeng">
+<meta property="article:tag" content="计算机网络">
+<meta property="article:tag" content="课堂笔记">
+<meta name="twitter:card" content="summary"><title>计算机网络随堂笔记 | 孤独的風</title><link ref="canonical" href="http://www.gddfeng.com/notebooks-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/课堂笔记/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">课堂笔记</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">编程语言</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/编程语言/c/"><span class="header-nav-submenu-item__text">C++</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">考研学习</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/考研学习/计算机网络/"><span class="header-nav-submenu-item__text">计算机网络</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/考研学习/计算机操作系统/"><span class="header-nav-submenu-item__text">计算机操作系统</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">渗透测试</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/渗透测试/SQL注入/"><span class="header-nav-submenu-item__text">SQL注入</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">计算机网络随堂笔记</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2021-09-26</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2021-09-30</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">2.6k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">14分</span></span></div></header><div class="post-body">
+        <h1 id="第1课-计算机网络与因特网"   >
+          <a href="#第1课-计算机网络与因特网" class="heading-link"><i class="fas fa-link"></i></a><a href="#第1课-计算机网络与因特网" class="headerlink" title="第1课 计算机网络与因特网"></a>第1课 计算机网络与因特网</h1>
+      <p>计算机网络自20世纪60年代开始发展。这种被定义，随着年代逐渐发展被逐渐修正。</p>
+
+        <h2 id="计算机网络的定义"   >
+          <a href="#计算机网络的定义" class="heading-link"><i class="fas fa-link"></i></a><a href="#计算机网络的定义" class="headerlink" title="计算机网络的定义"></a>计算机网络的定义</h2>
+      <ul>
+<li><p>简单定义</p>
+<ul>
+<li>一些互相连接的、自治的计算机的集合。</li>
+</ul>
+</li>
+<li><p>文献定义</p>
+<ul>
+<li>计算机网络是通信设备和线路将分散在不同地点的有独立功能的多个计算机系统相互连接起来，并按照网络协议进行数据通信，实现资源共享的计算机集合。<ul>
+<li>多个计算机：为用户提供服务</li>
+<li>一个通信子网：通信设备和线路</li>
+<li>一系列协议：保证数据通信</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>网络类型</p>
+<ul>
+<li>很多：如局域网、广域网……</li>
+</ul>
+</li>
+</ul>
+
+        <h2 id="1-1-什么是因特网"   >
+          <a href="#1-1-什么是因特网" class="heading-link"><i class="fas fa-link"></i></a><a href="#1-1-什么是因特网" class="headerlink" title="1.1 什么是因特网"></a>1.1 什么是因特网</h2>
+      
+        <h3 id="1-1-1-互联网的基本构成"   >
+          <a href="#1-1-1-互联网的基本构成" class="heading-link"><i class="fas fa-link"></i></a><a href="#1-1-1-互联网的基本构成" class="headerlink" title="1.1.1 互联网的基本构成"></a>1.1.1 互联网的基本构成</h3>
+      <p>螺母和螺栓的构成。</p>
+<ul>
+<li>设备<ul>
+<li>将所有的计算机连在一起运行程序。</li>
+</ul>
+</li>
+<li>Packet switches—分组交换机<ul>
+<li>路由器、交换机</li>
+</ul>
+</li>
+<li>Communication links—网络连接方式<ul>
+<li>fiber,copper,radio,satellite</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="1-1-2-互联网标准"   >
+          <a href="#1-1-2-互联网标准" class="heading-link"><i class="fas fa-link"></i></a><a href="#1-1-2-互联网标准" class="headerlink" title="1.1.2 互联网标准"></a>1.1.2 互联网标准</h3>
+      <p>因特网标准：由IETF指定的<code>标准文档RFC</code></p>
+<ul>
+<li>RFC：请求评论</li>
+<li>IETF：因特网工程任务组</li>
+</ul>
+
+        <h3 id="1-1-3-协议"   >
+          <a href="#1-1-3-协议" class="heading-link"><i class="fas fa-link"></i></a><a href="#1-1-3-协议" class="headerlink" title="1.1.3 协议"></a>1.1.3 协议</h3>
+      <ul>
+<li>TCP/IP</li>
+</ul>
+
+        <h3 id="1-1-4-网络边界"   >
+          <a href="#1-1-4-网络边界" class="heading-link"><i class="fas fa-link"></i></a><a href="#1-1-4-网络边界" class="headerlink" title="1.1.4 网络边界"></a>1.1.4 网络边界</h3>
+      <p>边界都是端设备</p>
+<ul>
+<li>设备<ul>
+<li>PC</li>
+<li>服务器</li>
+<li>…… </li>
+</ul>
+</li>
+<li>接入方式<ul>
+<li>无线</li>
+<li>有线</li>
+<li>Wifi</li>
+</ul>
+</li>
+</ul>
+
+        <h4 id="1-1-4-1-网络核心的设备等"   >
+          <a href="#1-1-4-1-网络核心的设备等" class="heading-link"><i class="fas fa-link"></i></a><a href="#1-1-4-1-网络核心的设备等" class="headerlink" title="1.1.4.1 网络核心的设备等"></a>1.1.4.1 网络核心的设备等</h4>
+      <ul>
+<li>设备<ul>
+<li>交换机</li>
+<li>路由器</li>
+</ul>
+</li>
+<li>接入方式<ul>
+<li>以太网</li>
+<li>DSL</li>
+</ul>
+</li>
+</ul>
+
+        <h4 id="1-1-4-2-传输链路"   >
+          <a href="#1-1-4-2-传输链路" class="heading-link"><i class="fas fa-link"></i></a><a href="#1-1-4-2-传输链路" class="headerlink" title="1.1.4.2 传输链路"></a>1.1.4.2 传输链路</h4>
+      <ul>
+<li><p>Guided media</p>
+</li>
+<li><p>Unguiede media </p>
+<p>  全双工：能同时收发<br>  半双工：只能收或发</p>
+</li>
+</ul>
+
+        <h3 id="1-1-5-网络核心"   >
+          <a href="#1-1-5-网络核心" class="heading-link"><i class="fas fa-link"></i></a><a href="#1-1-5-网络核心" class="headerlink" title="1.1.5 网络核心"></a>1.1.5 网络核心</h3>
+      <p>通过路由器和交换机将各种设备连接在一起，使其能够相互通信。</p>
+<ul>
+<li>路由器</li>
+<li>通信链路</li>
+<li>网络的网络  </li>
+</ul>
+
+        <h1 id="第2课"   >
+          <a href="#第2课" class="heading-link"><i class="fas fa-link"></i></a><a href="#第2课" class="headerlink" title="第2课"></a>第2课</h1>
+      <p>胖AP、瘦AP</p>
+
+        <h3 id="交换技术"   >
+          <a href="#交换技术" class="heading-link"><i class="fas fa-link"></i></a><a href="#交换技术" class="headerlink" title="交换技术"></a>交换技术</h3>
+      <ol>
+<li>电路交换：早期的电话线技术</li>
+<li>报文交换：添加源地址、目的地址等附加信息后发送。</li>
+<li>分组交换：将要发送的的数据分成若干小的<strong>块</strong>，<strong>添加首部形成分组</strong>，分别发送到目的端，再组装恢复成原数据。</li>
+</ol>
+<p>第一个分组交换网络：<code>ARPA网</code>，产生于20世纪70年代，是因特网的“最早祖先”。</p>
+
+        <h3 id="接入网络方式"   >
+          <a href="#接入网络方式" class="heading-link"><i class="fas fa-link"></i></a><a href="#接入网络方式" class="headerlink" title="接入网络方式"></a>接入网络方式</h3>
+      
+        <h4 id="1-拨号调制解调器"   >
+          <a href="#1-拨号调制解调器" class="heading-link"><i class="fas fa-link"></i></a><a href="#1-拨号调制解调器" class="headerlink" title="1. 拨号调制解调器"></a>1. 拨号调制解调器</h4>
+      <p>将家庭端系统通过普通模拟点划线用拨号调制解调器与住宅ISP连接。</p>
+
+        <h4 id="2-HFC-电视光纤"   >
+          <a href="#2-HFC-电视光纤" class="heading-link"><i class="fas fa-link"></i></a><a href="#2-HFC-电视光纤" class="headerlink" title="2. HFC 电视光纤"></a>2. HFC 电视光纤</h4>
+      <p>共享式的</p>
+
+        <h4 id="3-DSL"   >
+          <a href="#3-DSL" class="heading-link"><i class="fas fa-link"></i></a><a href="#3-DSL" class="headerlink" title="3. DSL"></a>3. DSL</h4>
+      
+        <h4 id="4-ADSL"   >
+          <a href="#4-ADSL" class="heading-link"><i class="fas fa-link"></i></a><a href="#4-ADSL" class="headerlink" title="4. ADSL"></a>4. ADSL</h4>
+      
+        <h3 id="以太网技术"   >
+          <a href="#以太网技术" class="heading-link"><i class="fas fa-link"></i></a><a href="#以太网技术" class="headerlink" title="以太网技术"></a>以太网技术</h3>
+      <ul>
+<li>共享以太网：端系统共享以太网的传输速率</li>
+<li>交换以太网：多个用户可同时使用全部带宽通信</li>
+</ul>
+
+        <h3 id="无线局域网"   >
+          <a href="#无线局域网" class="heading-link"><i class="fas fa-link"></i></a><a href="#无线局域网" class="headerlink" title="无线局域网"></a>无线局域网</h3>
+      
+        <h3 id="广域无线接入网"   >
+          <a href="#广域无线接入网" class="heading-link"><i class="fas fa-link"></i></a><a href="#广域无线接入网" class="headerlink" title="广域无线接入网"></a>广域无线接入网</h3>
+      
+        <h3 id="物理媒体"   >
+          <a href="#物理媒体" class="heading-link"><i class="fas fa-link"></i></a><a href="#物理媒体" class="headerlink" title="物理媒体"></a>物理媒体</h3>
+      
+        <h4 id="导引型的"   >
+          <a href="#导引型的" class="heading-link"><i class="fas fa-link"></i></a><a href="#导引型的" class="headerlink" title="导引型的"></a>导引型的</h4>
+      <ol>
+<li>双绞线<ul>
+<li>扭合度越高，抗干扰能力越好，网速越快。</li>
+</ul>
+<ol>
+<li>屏蔽双绞线</li>
+<li>非屏蔽双绞线</li>
+</ol>
+</li>
+<li>同轴电缆<ul>
+<li><code>内导体</code>传递数据</li>
+<li><code>外导体</code>用作地线及屏蔽干扰</li>
+<li>类型：<ul>
+<li>基带同轴电缆（50欧姆）<ul>
+<li>比特流直接向电缆发送，不需要调制。</li>
+</ul>
+</li>
+<li>宽带同轴电缆（75欧姆）<ul>
+<li>将数字信号调制成特定频段的模拟信号</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>光纤<ul>
+<li>双层结构</li>
+<li>传光原理：全反射，越细越好</li>
+<li>传输系统构成</li>
+<li>光纤类型</li>
+<li>光缆</li>
+</ul>
+</li>
+</ol>
+
+        <h4 id="无导引型的"   >
+          <a href="#无导引型的" class="heading-link"><i class="fas fa-link"></i></a><a href="#无导引型的" class="headerlink" title="无导引型的"></a>无导引型的</h4>
+      
+        <h1 id="第3课"   >
+          <a href="#第3课" class="heading-link"><i class="fas fa-link"></i></a><a href="#第3课" class="headerlink" title="第3课"></a>第3课</h1>
+      
+        <h2 id="上节课的补充"   >
+          <a href="#上节课的补充" class="heading-link"><i class="fas fa-link"></i></a><a href="#上节课的补充" class="headerlink" title="上节课的补充"></a>上节课的补充</h2>
+      
+        <h3 id="网线的种类"   >
+          <a href="#网线的种类" class="heading-link"><i class="fas fa-link"></i></a><a href="#网线的种类" class="headerlink" title="网线的种类"></a>网线的种类</h3>
+      <ol>
+<li>直连线<ul>
+<li>终端之间的连接</li>
+</ul>
+</li>
+<li>交叉线<ul>
+<li>交换机与交换机之间的连接</li>
+</ul>
+</li>
+<li>控制线(console线)<ul>
+<li>交换机与服务器的配置</li>
+</ul>
+</li>
+</ol>
+<p>直连线和交叉线的标准已经自适应了，可以混用。</p>
+
+        <h2 id="网络核心"   >
+          <a href="#网络核心" class="heading-link"><i class="fas fa-link"></i></a><a href="#网络核心" class="headerlink" title="网络核心"></a>网络核心</h2>
+      
+        <h3 id="分组交换"   >
+          <a href="#分组交换" class="heading-link"><i class="fas fa-link"></i></a><a href="#分组交换" class="headerlink" title="分组交换"></a>分组交换</h3>
+      <p>将报文拆分成较小的数据块(package)</p>
+
+        <h4 id="存储转发传输"   >
+          <a href="#存储转发传输" class="heading-link"><i class="fas fa-link"></i></a><a href="#存储转发传输" class="headerlink" title="存储转发传输"></a>存储转发传输</h4>
+      <p>先存储在转发</p>
+<p>存储转发时延：将一个分组<strong>转发到输出链路</strong>上所需时间。若一个分组长Lbit，链路传输速率R，该时延是L/R s。</p>
+<p>输出缓存：用于保存准备发往某个链路的分组。每条相连的链路都对应有一个。</p>
+<p>排队时延：在缓存中排队等待转发。</p>
+<p>传播时延：信号在传输的过程中。</p>
+
+        <h3 id="分组交换网络"   >
+          <a href="#分组交换网络" class="heading-link"><i class="fas fa-link"></i></a><a href="#分组交换网络" class="headerlink" title="分组交换网络"></a>分组交换网络</h3>
+      <p>统计复用：按需分配资源。如A和B分组没有固定的顺序。<br>时分复用：按时间分配资源。</p>
+
+        <h3 id="电路交换"   >
+          <a href="#电路交换" class="heading-link"><i class="fas fa-link"></i></a><a href="#电路交换" class="headerlink" title="电路交换"></a>电路交换</h3>
+      
+        <h3 id="三层ISP"   >
+          <a href="#三层ISP" class="heading-link"><i class="fas fa-link"></i></a><a href="#三层ISP" class="headerlink" title="三层ISP"></a>三层ISP</h3>
+      <ol>
+<li>骨干ISP</li>
+<li>地区ISP</li>
+<li>本地ISP</li>
+<li>IXP</li>
+</ol>
+<p>4个时延</p>
+
+        <h1 id="第4课"   >
+          <a href="#第4课" class="heading-link"><i class="fas fa-link"></i></a><a href="#第4课" class="headerlink" title="第4课"></a>第4课</h1>
+      
+        <h2 id="traceroute-tracert"   >
+          <a href="#traceroute-tracert" class="heading-link"><i class="fas fa-link"></i></a><a href="#traceroute-tracert" class="headerlink" title="traceroute/tracert"></a>traceroute/tracert</h2>
+      <ul>
+<li>Linux：traceroute</li>
+<li>Windows：tracert</li>
+</ul>
+
+        <h2 id="分层后数据传递的过程"   >
+          <a href="#分层后数据传递的过程" class="heading-link"><i class="fas fa-link"></i></a><a href="#分层后数据传递的过程" class="headerlink" title="分层后数据传递的过程"></a>分层后数据传递的过程</h2>
+      <p>主机(端系统)间数据传送实际上并不是在对等层间直接进行，而是<strong>通过相邻层间的传递</strong>。</p>
+
+        <h2 id="因特网协议栈"   >
+          <a href="#因特网协议栈" class="heading-link"><i class="fas fa-link"></i></a><a href="#因特网协议栈" class="headerlink" title="因特网协议栈"></a>因特网协议栈</h2>
+      <p>逻辑上的栈。</p>
+<p>物理层：比特(bit)<br>链路层：帧(frame)<br>网络层：数据报(datagram)<br>运输层：报文段(segment)<br>应用层：报文(message)</p>
+<p>IP Over Everything!</p>
+<p>Everything Over IP!</p>
+
+        <h2 id="各层功能"   >
+          <a href="#各层功能" class="heading-link"><i class="fas fa-link"></i></a><a href="#各层功能" class="headerlink" title="各层功能"></a>各层功能</h2>
+      <ul>
+<li>应用层：提供各种网络应用。传输应用<strong>报文</strong>。<ul>
+<li>FTP、SMTP、HTTP</li>
+</ul>
+</li>
+<li>运输层：在应用程序的客户机和服务器之间提供传输应用层报文服务。传输<strong>报文段</strong>。<ul>
+<li>TCP、UDP</li>
+</ul>
+</li>
+<li>网络层：主机和主机之间传输网络层分组。<strong>数据报</strong>。<ul>
+<li>IP协议、选路协议</li>
+</ul>
+</li>
+<li>链路层：在邻近单元之间传输数据<strong>帧</strong>。<ul>
+<li>PPP、以太网</li>
+</ul>
+</li>
+<li>物理层：在结点之间传输<strong>比特流</strong>。<ul>
+<li>传输媒体</li>
+</ul>
+</li>
+</ul>
+<p>物理层关注的是比特本身。</p>
+<p>OSI的传输层功能：流量控制、差错检测、数据分段。</p>
+<p>OSI的会话层功能：管理会话，建立、维持、切断连接。</p>
+
+        <h2 id="节点分层"   >
+          <a href="#节点分层" class="heading-link"><i class="fas fa-link"></i></a><a href="#节点分层" class="headerlink" title="节点分层"></a>节点分层</h2>
+      <ul>
+<li>路由器：实现第一层到第三层，能够实现IP协议。</li>
+<li>链路交换机：实现第一层和第二层，能够识别第二层地址，如以太网地址。</li>
+<li>主机：实现所有5个层次。</li>
+</ul>
+
+        <h1 id="第5课"   >
+          <a href="#第5课" class="heading-link"><i class="fas fa-link"></i></a><a href="#第5课" class="headerlink" title="第5课"></a>第5课</h1>
+      
+        <h2 id="网络安全"   >
+          <a href="#网络安全" class="heading-link"><i class="fas fa-link"></i></a><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h2>
+      <p>安全策略、规章制度</p>
+<p>哪些是安全的，哪些是不必要的</p>
+<p>没有绝对安全的系统</p>
+<p>防火墙、入侵检测(IDS)、入侵防御系统(IPS)</p>
+
+        <h2 id="就业"   >
+          <a href="#就业" class="heading-link"><i class="fas fa-link"></i></a><a href="#就业" class="headerlink" title="就业"></a>就业</h2>
+      <p>做大数据的难点：</p>
+<ul>
+<li>数据来源</li>
+<li>算法这东西靠他妈天分</li>
+</ul>
+
+        <h1 id="第6课"   >
+          <a href="#第6课" class="heading-link"><i class="fas fa-link"></i></a><a href="#第6课" class="headerlink" title="第6课"></a>第6课</h1>
+      
+        <h2 id="应用层"   >
+          <a href="#应用层" class="heading-link"><i class="fas fa-link"></i></a><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h2>
+      <p>网络应用是计算机网络的重要功能之一。</p>
+<ul>
+<li>主要内容：<ul>
+<li>应用层概念：应用层协议、和主机与服务器、进程、套接字和运输层接口</li>
+<li>应用程序：</li>
+<li>套接字编程：</li>
+</ul>
+</li>
+</ul>
+<p>写出能够分别<strong>在不同端系统运行，并通过网络相互通信</strong>的程序。</p>
+<p>应用程序软件只在端系统运行，不需要再网络核心设备上运行。</p>
+<ul>
+<li><p>三种类型</p>
+<ul>
+<li>C/S</li>
+<li>P2P</li>
+<li>C/S &amp; P2P</li>
+</ul>
+</li>
+<li><p>服务器：</p>
+<ul>
+<li>总是打开</li>
+<li>为多个客户机请求提供服务</li>
+<li>永久的IP地址</li>
+<li>可扩展为服务器场</li>
+</ul>
+</li>
+<li><p>客户机：</p>
+<ul>
+<li>总是打开或间歇打开</li>
+<li>向服务器发出请求</li>
+<li>具有动态地IP地址</li>
+<li>彼此之间不直接通信</li>
+</ul>
+</li>
+<li><p>P2P:</p>
+<ul>
+<li>无打开的服务器</li>
+<li>任意端系统可以直接通信</li>
+<li>对等方间歇的连接</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="进程通信"   >
+          <a href="#进程通信" class="heading-link"><i class="fas fa-link"></i></a><a href="#进程通信" class="headerlink" title="进程通信"></a>进程通信</h3>
+      <p>进程：在主机上运行的程序</p>
+<ul>
+<li>进程通信：<ul>
+<li>同一主机中两个进程间的通信：由操作系统控制；</li>
+<li>不同主机中进程间的通信：通过网络交换<strong>报文</strong>进行。<ul>
+<li>发送进程：产生报文并向网络发送</li>
+<li>接收进程：接收报文，并回送报文</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="客户机和服务器进程"   >
+          <a href="#客户机和服务器进程" class="heading-link"><i class="fas fa-link"></i></a><a href="#客户机和服务器进程" class="headerlink" title="客户机和服务器进程"></a>客户机和服务器进程</h3>
+      <ul>
+<li>网络应用程序由<strong>成对的进程组成</strong>，并通过网络相互发送报文</li>
+</ul>
+
+        <h3 id="套接字socket"   >
+          <a href="#套接字socket" class="heading-link"><i class="fas fa-link"></i></a><a href="#套接字socket" class="headerlink" title="套接字socket"></a>套接字socket</h3>
+      <p>套接字：同一台主机内应用层与传输层之间的接口。</p>
+<p>进程类似房子，套接字是进程的门</p>
+<p>进程通过<strong>套接字</strong>在网络上发送和接收报文</p>
+
+        <h3 id="进程寻址"   >
+          <a href="#进程寻址" class="heading-link"><i class="fas fa-link"></i></a><a href="#进程寻址" class="headerlink" title="进程寻址"></a>进程寻址</h3>
+      <p>主机上的进程可以有多个</p>
+<p>网络中有多个主机，每个主机上有多个进程</p>
+<p>进程识别信息：表示那台主机上的哪一个进程</p>
+<ul>
+<li>主机名称或地址：网络中的哪一个主机</li>
+<li>进程的标识：主机中的哪一个进程</li>
+</ul>
+
+        <h3 id="应用程序需要什么样的运输服务"   >
+          <a href="#应用程序需要什么样的运输服务" class="heading-link"><i class="fas fa-link"></i></a><a href="#应用程序需要什么样的运输服务" class="headerlink" title="应用程序需要什么样的运输服务"></a>应用程序需要什么样的运输服务</h3>
+      <ul>
+<li>可靠的数据传输</li>
+<li>带宽</li>
+<li>定时</li>
+<li>安全性</li>
+</ul>
+
+        <h3 id="TCP"   >
+          <a href="#TCP" class="heading-link"><i class="fas fa-link"></i></a><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h3>
+      <ul>
+<li>流量控制</li>
+<li>拥塞控制</li>
+<li>未提供的服务：<ul>
+<li>发送进程受拥塞控制机制制约</li>
+</ul>
+</li>
+<li>不提供时延保证<ul>
+<li>数据传输的时间不确定</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="UDP"   >
+          <a href="#UDP" class="heading-link"><i class="fas fa-link"></i></a><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h3>
+      <ul>
+<li>无连接</li>
+<li>不可靠数据传输</li>
+<li>没有拥塞控制机制</li>
+<li>没有时延保证</li>
+</ul>
+
+        <h3 id="应用层协议"   >
+          <a href="#应用层协议" class="heading-link"><i class="fas fa-link"></i></a><a href="#应用层协议" class="headerlink" title="应用层协议"></a>应用层协议</h3>
+      <p>定义了运行在不同端系统上的应用程序<strong>进程间传递报文的格式和方式</strong>。</p>
+<ul>
+<li>交换的报文类型：如请求报文和响应报文</li>
+<li>各种报文类型的语法：报文中的各个字段及描述</li>
+<li>字段的含义：字段包含信息的含义</li>
+<li>进程何时、如何发送报文及对报文进行响应的规则。</li>
+</ul>
+
+        <h1 id="第5课-1"   >
+          <a href="#第5课-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#第5课-1" class="headerlink" title="第5课"></a>第5课</h1>
+      <p>Web和HTTP，没什么值得记的</p>
+
+        <h1 id="第6课-1"   >
+          <a href="#第6课-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#第6课-1" class="headerlink" title="第6课"></a>第6课</h1>
+      <ol>
+<li>套接字(socket)</li>
+</ol>
+<p>同一台主机内<strong>应用层与传输层</strong>之间的接口。</p>
+<p>也叫应用程序和网络之间的<strong>应用程序接口API</strong>，是在网络上建立网络应用程序的<strong>可编程接口</strong>。</p>
+
+        <h2 id="请求一个HTML文件所需时间"   >
+          <a href="#请求一个HTML文件所需时间" class="heading-link"><i class="fas fa-link"></i></a><a href="#请求一个HTML文件所需时间" class="headerlink" title="请求一个HTML文件所需时间"></a>请求一个HTML文件所需时间</h2>
+      <p>即<strong>从客户机请求基本HTML文件开始，到用户收到整个文件为止所花时间</strong>。</p>
+<ul>
+<li><p>往返时延RTT：</p>
+<ul>
+<li>一个分组从客户机到服务器，再回到客户机所花时间。</li>
+<li>包括传播时延、排队时延以及处理时延</li>
+</ul>
+</li>
+<li><p>TCP连接的总响应时间：两个RTT时延加上服务器发送文件的时间。</p>
+</li>
+</ul>
+<p>HTTP是无状态的的。</p>
+<p>FTP协议是有状态的。</p>
+
+        <h2 id="邮件服务器"   >
+          <a href="#邮件服务器" class="heading-link"><i class="fas fa-link"></i></a><a href="#邮件服务器" class="headerlink" title="邮件服务器"></a>邮件服务器</h2>
+      <p>POP3缺陷：用户读取邮件后，服务器不再保存。</p>
+<p>IMAP：删除前一直存在邮件服务器中</p>
+<ul>
+<li>编码：<ul>
+<li>正文：Quoted-printable</li>
+<li>附件：Base64</li>
+</ul>
+</li>
+</ul>
+
+        <h2 id="DNS提供的服务"   >
+          <a href="#DNS提供的服务" class="heading-link"><i class="fas fa-link"></i></a><a href="#DNS提供的服务" class="headerlink" title="DNS提供的服务"></a>DNS提供的服务</h2>
+      <p>DNS协议运行在UDP之上，使用53号端口。</p>
+
+        <h3 id="DNS根名字服务器"   >
+          <a href="#DNS根名字服务器" class="heading-link"><i class="fas fa-link"></i></a><a href="#DNS根名字服务器" class="headerlink" title="DNS根名字服务器"></a>DNS根名字服务器</h3>
+      <ul>
+<li>当本地名字服务器不能分解名字时联系它</li>
+<li>根名字服务器：<ul>
+<li>如果名字映射未知，联系权威名字服务器</li>
+<li>获得映射</li>
+<li>返回对本地名字服务器的映射</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="顶级域和权威服务器"   >
+          <a href="#顶级域和权威服务器" class="heading-link"><i class="fas fa-link"></i></a><a href="#顶级域和权威服务器" class="headerlink" title="顶级域和权威服务器"></a>顶级域和权威服务器</h3>
+      
+        <h3 id="DNS-请求方式"   >
+          <a href="#DNS-请求方式" class="heading-link"><i class="fas fa-link"></i></a><a href="#DNS-请求方式" class="headerlink" title="DNS 请求方式"></a>DNS 请求方式</h3>
+      <ul>
+<li>递归请求<ul>
+<li>由中间询问人接着询问，直至找到目的主机的IP</li>
+</ul>
+</li>
+<li>迭代请求<ul>
+<li>询问后返回其他DNS服务器地址。</li>
+</ul>
+</li>
+</ul>
+<p>本地DNS啊服务器-&gt;根DNS服务器-&gt;TLD DNS服务器-&gt;权威DNS服务器</p>
+
+        <h3 id="DNS记录和报文"   >
+          <a href="#DNS记录和报文" class="heading-link"><i class="fas fa-link"></i></a><a href="#DNS记录和报文" class="headerlink" title="DNS记录和报文"></a>DNS记录和报文</h3>
+      <ul>
+<li>A</li>
+<li>CNAME</li>
+<li>NS<ul>
+<li>权威名字服务器</li>
+</ul>
+</li>
+<li>MX</li>
+</ul>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://www.gddfeng.com">gddFeng</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://www.gddfeng.com/notebooks-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">http://www.gddfeng.com/notebooks-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.gddfeng.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.gddfeng.com/tags/%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/">课堂笔记</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/notebooks-c/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">C++</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/notebooks-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/"><span class="paginator-prev__text">数据库原理与应用随堂笔记</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC1%E8%AF%BE-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%9B%A0%E7%89%B9%E7%BD%91"><span class="toc-number">1.</span> <span class="toc-text">
+          第1课 计算机网络与因特网</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.</span> <span class="toc-text">
+          计算机网络的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%A0%E7%89%B9%E7%BD%91"><span class="toc-number">1.2.</span> <span class="toc-text">
+          1.1 什么是因特网</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-1-%E4%BA%92%E8%81%94%E7%BD%91%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%9E%84%E6%88%90"><span class="toc-number">1.2.1.</span> <span class="toc-text">
+          1.1.1 互联网的基本构成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-2-%E4%BA%92%E8%81%94%E7%BD%91%E6%A0%87%E5%87%86"><span class="toc-number">1.2.2.</span> <span class="toc-text">
+          1.1.2 互联网标准</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-3-%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.2.3.</span> <span class="toc-text">
+          1.1.3 协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-4-%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%95%8C"><span class="toc-number">1.2.4.</span> <span class="toc-text">
+          1.1.4 网络边界</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-4-1-%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83%E7%9A%84%E8%AE%BE%E5%A4%87%E7%AD%89"><span class="toc-number">1.2.4.1.</span> <span class="toc-text">
+          1.1.4.1 网络核心的设备等</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-4-2-%E4%BC%A0%E8%BE%93%E9%93%BE%E8%B7%AF"><span class="toc-number">1.2.4.2.</span> <span class="toc-text">
+          1.1.4.2 传输链路</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-5-%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83"><span class="toc-number">1.2.5.</span> <span class="toc-text">
+          1.1.5 网络核心</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC2%E8%AF%BE"><span class="toc-number">2.</span> <span class="toc-text">
+          第2课</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E6%8D%A2%E6%8A%80%E6%9C%AF"><span class="toc-number">2.0.1.</span> <span class="toc-text">
+          交换技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%85%A5%E7%BD%91%E7%BB%9C%E6%96%B9%E5%BC%8F"><span class="toc-number">2.0.2.</span> <span class="toc-text">
+          接入网络方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%8B%A8%E5%8F%B7%E8%B0%83%E5%88%B6%E8%A7%A3%E8%B0%83%E5%99%A8"><span class="toc-number">2.0.2.1.</span> <span class="toc-text">
+          1. 拨号调制解调器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-HFC-%E7%94%B5%E8%A7%86%E5%85%89%E7%BA%A4"><span class="toc-number">2.0.2.2.</span> <span class="toc-text">
+          2. HFC 电视光纤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-DSL"><span class="toc-number">2.0.2.3.</span> <span class="toc-text">
+          3. DSL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-ADSL"><span class="toc-number">2.0.2.4.</span> <span class="toc-text">
+          4. ADSL</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A5%E5%A4%AA%E7%BD%91%E6%8A%80%E6%9C%AF"><span class="toc-number">2.0.3.</span> <span class="toc-text">
+          以太网技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E7%BA%BF%E5%B1%80%E5%9F%9F%E7%BD%91"><span class="toc-number">2.0.4.</span> <span class="toc-text">
+          无线局域网</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%BF%E5%9F%9F%E6%97%A0%E7%BA%BF%E6%8E%A5%E5%85%A5%E7%BD%91"><span class="toc-number">2.0.5.</span> <span class="toc-text">
+          广域无线接入网</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E5%AA%92%E4%BD%93"><span class="toc-number">2.0.6.</span> <span class="toc-text">
+          物理媒体</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%BC%E5%BC%95%E5%9E%8B%E7%9A%84"><span class="toc-number">2.0.6.1.</span> <span class="toc-text">
+          导引型的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A0%E5%AF%BC%E5%BC%95%E5%9E%8B%E7%9A%84"><span class="toc-number">2.0.6.2.</span> <span class="toc-text">
+          无导引型的</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC3%E8%AF%BE"><span class="toc-number">3.</span> <span class="toc-text">
+          第3课</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E8%8A%82%E8%AF%BE%E7%9A%84%E8%A1%A5%E5%85%85"><span class="toc-number">3.1.</span> <span class="toc-text">
+          上节课的补充</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BA%BF%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="toc-number">3.1.1.</span> <span class="toc-text">
+          网线的种类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83"><span class="toc-number">3.2.</span> <span class="toc-text">
+          网络核心</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2"><span class="toc-number">3.2.1.</span> <span class="toc-text">
+          分组交换</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E8%BD%AC%E5%8F%91%E4%BC%A0%E8%BE%93"><span class="toc-number">3.2.1.1.</span> <span class="toc-text">
+          存储转发传输</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2%E7%BD%91%E7%BB%9C"><span class="toc-number">3.2.2.</span> <span class="toc-text">
+          分组交换网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2"><span class="toc-number">3.2.3.</span> <span class="toc-text">
+          电路交换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E5%B1%82ISP"><span class="toc-number">3.2.4.</span> <span class="toc-text">
+          三层ISP</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC4%E8%AF%BE"><span class="toc-number">4.</span> <span class="toc-text">
+          第4课</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#traceroute-tracert"><span class="toc-number">4.1.</span> <span class="toc-text">
+          traceroute&#x2F;tracert</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B1%82%E5%90%8E%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-number">4.2.</span> <span class="toc-text">
+          分层后数据传递的过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%A0%E7%89%B9%E7%BD%91%E5%8D%8F%E8%AE%AE%E6%A0%88"><span class="toc-number">4.3.</span> <span class="toc-text">
+          因特网协议栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E5%B1%82%E5%8A%9F%E8%83%BD"><span class="toc-number">4.4.</span> <span class="toc-text">
+          各层功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E5%88%86%E5%B1%82"><span class="toc-number">4.5.</span> <span class="toc-text">
+          节点分层</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC5%E8%AF%BE"><span class="toc-number">5.</span> <span class="toc-text">
+          第5课</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8"><span class="toc-number">5.1.</span> <span class="toc-text">
+          网络安全</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%B1%E4%B8%9A"><span class="toc-number">5.2.</span> <span class="toc-text">
+          就业</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC6%E8%AF%BE"><span class="toc-number">6.</span> <span class="toc-text">
+          第6课</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82"><span class="toc-number">6.1.</span> <span class="toc-text">
+          应用层</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1"><span class="toc-number">6.1.1.</span> <span class="toc-text">
+          进程通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E6%9C%BA%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E7%A8%8B"><span class="toc-number">6.1.2.</span> <span class="toc-text">
+          客户机和服务器进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A5%97%E6%8E%A5%E5%AD%97socket"><span class="toc-number">6.1.3.</span> <span class="toc-text">
+          套接字socket</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E5%AF%BB%E5%9D%80"><span class="toc-number">6.1.4.</span> <span class="toc-text">
+          进程寻址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E9%9C%80%E8%A6%81%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84%E8%BF%90%E8%BE%93%E6%9C%8D%E5%8A%A1"><span class="toc-number">6.1.5.</span> <span class="toc-text">
+          应用程序需要什么样的运输服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP"><span class="toc-number">6.1.6.</span> <span class="toc-text">
+          TCP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP"><span class="toc-number">6.1.7.</span> <span class="toc-text">
+          UDP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82%E5%8D%8F%E8%AE%AE"><span class="toc-number">6.1.8.</span> <span class="toc-text">
+          应用层协议</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC5%E8%AF%BE-1"><span class="toc-number">7.</span> <span class="toc-text">
+          第5课</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC6%E8%AF%BE-1"><span class="toc-number">8.</span> <span class="toc-text">
+          第6课</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E4%B8%80%E4%B8%AAHTML%E6%96%87%E4%BB%B6%E6%89%80%E9%9C%80%E6%97%B6%E9%97%B4"><span class="toc-number">8.1.</span> <span class="toc-text">
+          请求一个HTML文件所需时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">8.2.</span> <span class="toc-text">
+          邮件服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DNS%E6%8F%90%E4%BE%9B%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="toc-number">8.3.</span> <span class="toc-text">
+          DNS提供的服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DNS%E6%A0%B9%E5%90%8D%E5%AD%97%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">8.3.1.</span> <span class="toc-text">
+          DNS根名字服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B6%E7%BA%A7%E5%9F%9F%E5%92%8C%E6%9D%83%E5%A8%81%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">8.3.2.</span> <span class="toc-text">
+          顶级域和权威服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DNS-%E8%AF%B7%E6%B1%82%E6%96%B9%E5%BC%8F"><span class="toc-number">8.3.3.</span> <span class="toc-text">
+          DNS 请求方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DNS%E8%AE%B0%E5%BD%95%E5%92%8C%E6%8A%A5%E6%96%87"><span class="toc-number">8.3.4.</span> <span class="toc-text">
+          DNS记录和报文</span></a></li></ol></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/stun-logo.svg" alt="avatar"></div><p class="sidebar-ov-author__text">gddFeng</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2418180738&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">24</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">7</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021~2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>gddFeng All Rights Reserved</span><span class="footer__devider">|</span><span>冀2021001072号</span></div><div>有英勇也有温柔。</div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>
