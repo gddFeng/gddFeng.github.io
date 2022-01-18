@@ -1,0 +1,721 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="【计算机操作系统】2-4-死锁">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【计算机操作系统】2-4-死锁">
+<meta property="og:url" content="http://www.gddfeng.com/Major-%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E3%80%90%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E3%80%912-4-%E6%AD%BB%E9%94%81/index.html">
+<meta property="og:site_name" content="孤独的風">
+<meta property="og:description" content="【计算机操作系统】2-4-死锁">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-15T10:18:46.000Z">
+<meta property="article:modified_time" content="2022-01-15T10:18:46.000Z">
+<meta property="article:author" content="gddFeng">
+<meta property="article:tag" content="考研学习">
+<meta property="article:tag" content="计算机操作系统">
+<meta name="twitter:card" content="summary"><title>【计算机操作系统】2-4-死锁 | 孤独的風</title><link ref="canonical" href="http://www.gddfeng.com/Major-%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E3%80%90%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E3%80%912-4-%E6%AD%BB%E9%94%81/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/课堂笔记/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">课堂笔记</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">编程语言</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/编程语言/c/"><span class="header-nav-submenu-item__text">C++</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">考研学习</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/考研学习/计算机网络/"><span class="header-nav-submenu-item__text">计算机网络</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/考研学习/计算机操作系统/"><span class="header-nav-submenu-item__text">计算机操作系统</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">渗透测试</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/渗透测试/SQL注入/"><span class="header-nav-submenu-item__text">SQL注入</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">【计算机操作系统】2-4-死锁</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-01-15</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-15</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">4.9k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">24分</span></span></div></header><div class="post-body">
+        <h1 id="死锁的概念"   >
+          <a href="#死锁的概念" class="heading-link"><i class="fas fa-link"></i></a><a href="#死锁的概念" class="headerlink" title="死锁的概念"></a>死锁的概念</h1>
+      <ul>
+<li>什么是死锁</li>
+<li>进程死锁、饥饿、死循环的区别</li>
+<li>死锁产生的必要条件</li>
+<li>什么时候会发生死锁</li>
+<li>死锁的处理策略</li>
+</ul>
+
+        <h2 id="什么是死锁"   >
+          <a href="#什么是死锁" class="heading-link"><i class="fas fa-link"></i></a><a href="#什么是死锁" class="headerlink" title="什么是死锁"></a>什么是死锁</h2>
+      <p>每个人都占有一个资源，同时又在等待另一个人手里的寺院。发生“死锁”。</p>
+<p>在并发环境下，各进程因竞争资源而造成的一种<strong>互相等待对方手里的资源，导致各进程都阻塞，都无法向前推进的现象</strong>，就是“死锁”。发生死锁后若无外力干涉，这些进程都讲无法向前推进。</p>
+
+        <h2 id="死锁、饥饿、死循环的区别"   >
+          <a href="#死锁、饥饿、死循环的区别" class="heading-link"><i class="fas fa-link"></i></a><a href="#死锁、饥饿、死循环的区别" class="headerlink" title="死锁、饥饿、死循环的区别"></a>死锁、饥饿、死循环的区别</h2>
+      <p>死锁：各进程互相等待对方手里的资源，导致各进程都阻塞，无法向前推进的现象。</p>
+<p>饥饿：由于长期得不到想要的资源，某进程无法向前推进的现象。比如：短进程优先(SPF)算法中，若有源源不断的短进程到来，则长进程将一直得不到处理机，从而发生长进程“饥饿”。</p>
+<p>死循环：某进程执行过程中一直跳不出某个循环的现象。有时时因为程序逻辑bug导致的，有时时程序员故意设计的。</p>
+<ul>
+<li>区别<ul>
+<li>死锁至少有两个或两个以上的进程同时发生死锁。</li>
+<li>饥饿可能只有一个进程发生饥饿，既可能时阻塞态，也可能是就绪态。</li>
+<li>死锁和饥饿是管理者(操作系统)的问题，死循环是被管理者的问题。</li>
+</ul>
+</li>
+</ul>
+
+        <h2 id="死锁产生的必要条件"   >
+          <a href="#死锁产生的必要条件" class="heading-link"><i class="fas fa-link"></i></a><a href="#死锁产生的必要条件" class="headerlink" title="死锁产生的必要条件"></a>死锁产生的必要条件</h2>
+      <ul>
+<li>产生死锁必须同时满足以下四个条件，只要其中任一条件不成立，死锁就不会发生。<ol>
+<li>互斥条件：只有必须互斥使用的资源的争抢才会导致死锁(如哲学家的筷子、打印机设备)。</li>
+<li>不剥夺条件：进程所获得的资源在未使用完之前，<strong>不能由其他进程强行夺走</strong>，只能主动释放。</li>
+<li>请求和保持条件：进程<strong>已经保持了至少一个资源</strong>，但又提出了新的资源<strong>请求</strong>，而该资源又被其他进程占用，此时请求进程被阻塞，但又对自己已有的资源<strong>保持</strong>不放。</li>
+<li>循环等待条件：存在一种进程<strong>资源的循环等待链</strong>，链中的每一个进程已获得的资源同时被下一个进程所请求。</li>
+</ol>
+</li>
+</ul>
+<p><strong>发生死锁时一定有循环等待，但是发生循环等待时未必死锁</strong></p>
+<p>如果同类资源数大于1，则即使有循环等待，也未必发生死锁。但如果系统中每类资源都只有一个，那循环等待就是死锁的充分必要条件了。</p>
+
+        <h2 id="什么时候会发生死锁"   >
+          <a href="#什么时候会发生死锁" class="heading-link"><i class="fas fa-link"></i></a><a href="#什么时候会发生死锁" class="headerlink" title="什么时候会发生死锁"></a>什么时候会发生死锁</h2>
+      <ol>
+<li>对系统资源的竞争。各进程对不可剥夺的资源(如打印机)的竞争可能引起死锁，对可剥夺的资源(CPU)的竞争是不会引起死锁的。</li>
+<li>进程推进顺序非法。请求和释放资源的顺序不当，也同样会导致死锁。例如：并发执行的进程P1、P2分别申请并占有了资源R1、R2，之后进程P1又紧接着申请资源R2，而进程P2又申请资源R1，两者会因为申请的资源被对方占有而阻塞，从而发生死锁。</li>
+<li>信号量的使用不当也会造成死锁。如生产者-消费者问题中，如果实现互斥的P操作在实现同步的P操作之前，就有可能导致死锁。(可以把互斥信号、同步信号量也看做时一种抽象的系统资源)</li>
+</ol>
+<p>总之，对不可剥夺资源的不合理分配，可能导致死锁。</p>
+
+        <h2 id="死锁的处理策略"   >
+          <a href="#死锁的处理策略" class="heading-link"><i class="fas fa-link"></i></a><a href="#死锁的处理策略" class="headerlink" title="死锁的处理策略"></a>死锁的处理策略</h2>
+      <ol>
+<li>预防死锁。破坏死锁产生的四个必要条件中的一个或几个。</li>
+<li>避免死锁。用某种方法防止系统进入不安全状态，从而避免死锁(银行家算法)</li>
+<li>死锁的检测和解除。允许死锁的发生，不过操作系统会负责检测出死锁的发生，然后采取某种措施解除死锁。</li>
+</ol>
+<hr>
+<ul>
+<li>什么是死锁<ul>
+<li>各进程互相等待对方手里的资源，导致各进程都阻塞，无法向前推进</li>
+</ul>
+</li>
+<li>死锁、饥饿、死循环的区别<ul>
+<li>死锁：至少两个进程一起死锁，死锁处于阻塞态</li>
+<li>饥饿：可以只有一个进程饥饿，饥饿进程可能阻塞也可能就绪</li>
+<li>死循环：可能只有一个进程发生死循环，死循环的进程可上处理机</li>
+<li>死锁和饥饿时操作系统要解决的问题，死循环是应用程序员要解决的</li>
+</ul>
+</li>
+<li>死锁产生的必要条件<ul>
+<li>互斥条件<ul>
+<li>对必须互斥使用的资源的争抢才会导致死锁</li>
+</ul>
+</li>
+<li>不剥夺条件<ul>
+<li>进程保持的资源只能主动释放，不可强行剥夺</li>
+</ul>
+</li>
+<li>请求和保持条件<ul>
+<li>保持着某些资源不放的同时，请求别的资源</li>
+</ul>
+</li>
+<li>循环等待条件<ul>
+<li>存在一种进程资源的循环等待链</li>
+<li>循环等待未必死锁，死锁一定有循环等待</li>
+</ul>
+</li>
+<li>什么时候会发生死锁<ul>
+<li>对不可剥夺资源的不合理分配，可能导致死锁</li>
+</ul>
+</li>
+<li>死锁的处理策略<ul>
+<li>预防死锁<ul>
+<li>破坏死锁产生的四个必要条件</li>
+</ul>
+</li>
+<li>避免死锁<ul>
+<li>避免系统进入不安全状态(银行家算法)</li>
+</ul>
+</li>
+<li>死锁的检测和解除<ul>
+<li>允许死锁发生，系统负责检测出死锁并解除。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        <h1 id="死锁的处理策略——预防死锁"   >
+          <a href="#死锁的处理策略——预防死锁" class="heading-link"><i class="fas fa-link"></i></a><a href="#死锁的处理策略——预防死锁" class="headerlink" title="死锁的处理策略——预防死锁"></a>死锁的处理策略——预防死锁</h1>
+      <ul>
+<li>不允许死锁发生<ul>
+<li>静态策略：预防死锁<ul>
+<li>破坏互斥条件</li>
+<li>破坏不剥夺条件</li>
+<li>破坏请求和保持条件</li>
+<li>破坏循环等待条件</li>
+</ul>
+</li>
+<li>动态策略：避免死锁</li>
+</ul>
+</li>
+<li>允许思死锁发生<ul>
+<li>死锁的检测和解锁</li>
+</ul>
+</li>
+</ul>
+
+        <h2 id="破坏互斥条件"   >
+          <a href="#破坏互斥条件" class="heading-link"><i class="fas fa-link"></i></a><a href="#破坏互斥条件" class="headerlink" title="破坏互斥条件"></a>破坏互斥条件</h2>
+      <p>互斥条件：只有对必须互斥使用的资源的争抢才会导致死锁</p>
+<p>如果把只能互斥使用的资源改为允许共享使用，则系统不会进入死锁状态。比如：SPOOLing技术。操作系统可以采用SPOOLing技术把独占设备在逻辑上改造为共享设备……</p>
+<p>使用了SPOOLing技术后，在各进程看来，自己对打印机资源的使用请求立即就被接受处理了，不需要再阻塞等待。</p>
+<p>该策略的缺点：并不是所有的资源都可以改造成可共享使用的资源。并且为了系统安全，很多地方还必须保护这种互斥性。因此，<strong>很多时候都无法破坏互斥条件</strong>。</p>
+
+        <h2 id="破坏不剥夺条件"   >
+          <a href="#破坏不剥夺条件" class="heading-link"><i class="fas fa-link"></i></a><a href="#破坏不剥夺条件" class="headerlink" title="破坏不剥夺条件"></a>破坏不剥夺条件</h2>
+      <p>不剥夺条件：进程所获得的资源在未使用完之前，不能由其他进程强行夺走，只能主动释放。</p>
+<p>方案一：当某个进程请求新的资源得不到满足时，它必须立即释放保持的所有资源，待以后需要时再重新申请。也就是说，即使某些资源尚未使用完，也需要主动释放，从而破坏了不可剥夺条件。</p>
+<p>方案二：当某个进程需要的资源被其他进程所占有的时候，可以由操作系统协助，将想要的资源强行剥夺。这种方式一般需要考虑各进程的优先级(比如：剥夺调度方式，就是将处理机资源强行剥夺给优先级更高的进程使用)</p>
+<ul>
+<li>该策略的缺点<ol>
+<li>实现起来比较复杂</li>
+<li>释放已获得的资源可能造成前一阶段工作的失效。因此这种方法一般只适用于易保存和恢复状态的资源，如CPU。</li>
+<li>反复地申请和释放资源会增加系统开销，降低系统吞吐量。</li>
+<li>若采用方案一，意味着只要暂时得不到某个资源，之前获得的那些资源就都要放弃，以后再重新申请。如果一直发生这样的情况，就会导致进程饥饿。</li>
+</ol>
+</li>
+</ul>
+
+        <h2 id="破坏请求和保持条件"   >
+          <a href="#破坏请求和保持条件" class="heading-link"><i class="fas fa-link"></i></a><a href="#破坏请求和保持条件" class="headerlink" title="破坏请求和保持条件"></a>破坏请求和保持条件</h2>
+      <p>请求和保持条件：进程已经保持了至少一个资源，但又提出了新的资源<strong>请求</strong>，而该资源又被其他进程占有，此时请求进程被阻塞，但又对自己已有的资源<strong>保持</strong>不放。</p>
+<p>可以<strong>采用静态分配方法</strong>，即使进程在运行前一次申请完它所需要的全部资源，在它的资源未满足前，不让它投入运行。一旦投入运行后，这些资源就一直归它所有，该进程就不会再请求别的任何资源了。</p>
+<ul>
+<li>该策略实现起来简单，但也有明显的缺点：<ul>
+<li>有些资源可能只需要用很短的时间，因此如果进程的整个运行期间都一直保持着所有资源，就会造成严重的资源浪费，<strong>资源利用率极低</strong>。另外，该策略也有<strong>可能导致某些进程饥饿</strong>。使用资源种类和数量越多的进程就越容易出现饥饿。</li>
+</ul>
+</li>
+</ul>
+
+        <h2 id="破坏循环等待条件"   >
+          <a href="#破坏循环等待条件" class="heading-link"><i class="fas fa-link"></i></a><a href="#破坏循环等待条件" class="headerlink" title="破坏循环等待条件"></a>破坏循环等待条件</h2>
+      <p>循环等待条件：存在一种进程<strong>资源的循环等待链</strong>，链中的每一个进程已获得的资源同时被下一个进程所请求。</p>
+<p>可采用<strong>顺序资源分配法</strong>。首先给系统中的资源编号，规定每个进程<strong>必须按编号递增的顺序请求资源</strong>，同类资源(即编号相同的资源)一次申请完。</p>
+<p>原理分析：一个进程只有已占有小编号的资源时，才有资格申请更大编号的资源。按此规则，已持有大编号资源的进程不可能逆向地回来申请小编号的资源，从而不会产生循环等待的现象。</p>
+<p>在任何一个时刻，总有一个进程拥有资源编号时最大的，那这个进程申请之后的资源必然畅通无阻。因此不可能出现所有进程都阻塞的死锁现象。</p>
+<ul>
+<li>该策略的缺点：<ol>
+<li>不方便增加新的设备，因为可能需要重新分配所有编号</li>
+<li>进程实际使用资源的顺序可能和编号递增顺序不一致，会导致资源浪费。</li>
+<li>必须按规定次序申请资源，用户编程麻烦。</li>
+</ol>
+</li>
+</ul>
+<hr>
+
+        <h2 id="总结"   >
+          <a href="#总结" class="heading-link"><i class="fas fa-link"></i></a><a href="#总结" class="headerlink" title="总结"></a>总结</h2>
+      <ul>
+<li>破坏互斥条件<ul>
+<li>将临街资源改造为可共享使用的资源</li>
+<li>缺点：可行性不高，很多时候无法破坏互斥条件</li>
+</ul>
+</li>
+<li>破坏不剥夺条件<ol>
+<li>申请的资源得不到满足时，立即释放所有的资源</li>
+<li>申请的资源被其他进程占用时，由操作系统协助剥夺(考虑优先级)</li>
+</ol>
+<ul>
+<li>缺点：实现复杂；剥夺资源可能导致部分工作失效；反复申请和释放导致系统开销大；可能导致饥饿。</li>
+</ul>
+</li>
+<li>破坏请求和保持条件<ul>
+<li>运行前分配好所有需要的资源，之后一直保持</li>
+<li>缺点：资源资利用率低；可能导致饥饿</li>
+</ul>
+</li>
+<li>破坏循环等待条件<ul>
+<li>给资源编号必须按编号从小到大的顺序申请资源</li>
+<li>缺点：不方便增加新设备；会导致资源浪费；用户编程麻烦</li>
+</ul>
+</li>
+</ul>
+
+        <h1 id="死锁的处理策略——避免死锁"   >
+          <a href="#死锁的处理策略——避免死锁" class="heading-link"><i class="fas fa-link"></i></a><a href="#死锁的处理策略——避免死锁" class="headerlink" title="死锁的处理策略——避免死锁"></a>死锁的处理策略——避免死锁</h1>
+      <ul>
+<li>不允许死锁发生<ul>
+<li>静态策略：预防死锁</li>
+<li>动态策略：避免死锁<ul>
+<li>什么是安全序列</li>
+<li>什么是系统的不安全状态，与死锁有何联系</li>
+<li>如何避免系统进入不安全状态——银行家算法</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>允许死锁发生<ul>
+<li>死锁的检测和解除</li>
+</ul>
+</li>
+</ul>
+
+        <h2 id="什么是安全序列"   >
+          <a href="#什么是安全序列" class="heading-link"><i class="fas fa-link"></i></a><a href="#什么是安全序列" class="headerlink" title="什么是安全序列"></a>什么是安全序列</h2>
+      <p>所谓安全序列，就是指如果系统按照这种序列分配资源则每个进程都能顺利完成，只能找出一个安全序列，系统就是<strong>安全状态</strong>。当然，<strong>安全序列可能有多个</strong>。</p>
+<p>如果分配了资源之后，系统中找不出任何一个安全序列，系统就进入了<strong>不安全状态</strong>。这就意味着之后<strong>可能</strong>所有进程都无法顺利执行下去。当然，如果有进程提前归还了一些资源，那<strong>系统也有可能重新回到安全状态</strong>，不过我们在分配资源之前总是要考虑到最坏的情况。</p>
+
+        <h2 id="安全序列、不安全状态、死锁的联系"   >
+          <a href="#安全序列、不安全状态、死锁的联系" class="heading-link"><i class="fas fa-link"></i></a><a href="#安全序列、不安全状态、死锁的联系" class="headerlink" title="安全序列、不安全状态、死锁的联系"></a>安全序列、不安全状态、死锁的联系</h2>
+      <p>如果系统处于<strong>安全状态</strong>，就<strong>一定不会</strong>发生<strong>死锁</strong>。如果系统进入<strong>不安全状态</strong>，就<strong>可能</strong>发生<strong>死锁</strong>(处于不安全状态未必就是发生了死锁，但发生死锁时一定是在不安全状态)</p>
+<p>因此可在<strong>在资源分配之前预先判断这次分配是否会导致系统进入不安全状态</strong>，以此决定是否答应资源分配请求。这也是“<strong>银行家算法</strong>”的核心思想。</p>
+
+        <h2 id="银行家算法"   >
+          <a href="#银行家算法" class="heading-link"><i class="fas fa-link"></i></a><a href="#银行家算法" class="headerlink" title="银行家算法"></a>银行家算法</h2>
+      <p>银行家算法时荷兰学者Dijkstra为银行系统设计的，以确保银行在发放现金贷款时，不会发生不能满足所有客户需要的情况，后来该算法被用在操作系统中，用于<strong>避免死锁</strong>。</p>
+<p>核心思想：在进程提出资源申请时，先预判此次分配是否会导致系统进入不安全状态。如果会进入不安全状态，就暂时不答应这次请求，让该进程先阻塞等待。</p>
+<hr>
+
+        <h2 id="总结-1"   >
+          <a href="#总结-1" class="heading-link"><i class="fas fa-link"></i></a><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2>
+      <ul>
+<li><p>数据结构</p>
+<ul>
+<li>长度为m的以为数组Avaliable表示还有多少可用资源</li>
+<li>n*m矩阵Max表示各进程对资源的最大需求数</li>
+<li>n*m矩阵Allocation表示已经给各进程分配了多少资源</li>
+<li><code>Max-Allocation=Need</code>矩阵表示各进程自多还需要多少资源</li>
+<li>用长度为m的一维数组Request表示进程此次申请的各种资源数</li>
+</ul>
+</li>
+<li><p>银行家算法步骤</p>
+<ol>
+<li>检查此次申请是否超过了之前声明的最大需求数</li>
+<li>检查此时系统剩余的可用资源是否还能满足这次请求</li>
+<li>试探着分配，更改各数据结构</li>
+<li>用安全性算法检查此次分配是否会导致系统进入不安全状态</li>
+</ol>
+</li>
+<li><p>安全性算法步骤：</p>
+<ul>
+<li>检查当前的剩余可用资源是否能满足某个进程的最大需求，如果可以，就把该进程加入安全序列，并把该进程持有的资源全部回收。</li>
+<li>不断重复上述过程，看最终能否让所有进程都加入安全序列。</li>
+</ul>
+</li>
+</ul>
+<p>系统处于不安全状态未必死锁，但死锁时一定处于不安全状态。系统处于安全状态一定不会死锁。</p>
+
+        <h1 id="死锁的处理策略——检测和解除"   >
+          <a href="#死锁的处理策略——检测和解除" class="heading-link"><i class="fas fa-link"></i></a><a href="#死锁的处理策略——检测和解除" class="headerlink" title="死锁的处理策略——检测和解除"></a>死锁的处理策略——检测和解除</h1>
+      <ul>
+<li><p>不允许死锁发生</p>
+<ul>
+<li>静态策略：预防死锁</li>
+<li>动态策略：避免死锁</li>
+</ul>
+</li>
+<li><p>允许死锁发生</p>
+<ul>
+<li>死锁的检测和解除<ul>
+<li>死锁的检测</li>
+<li>死锁的解除</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>如果系统中既不采取预防死锁的措施，也不采取避免死锁的措施，系统就很<strong>可能发生死锁</strong>。在这种情况下，系统应当提供两个算法：</p>
+<ol>
+<li>死锁检测算法：用于检测系统状态，以确定系统中是否发生了死锁。</li>
+<li>死锁解除算法：当认定系统中已经发生了死锁，利用该算法可将系统从死锁状态中解脱出来。</li>
+</ol>
+</li>
+</ul>
+
+        <h2 id="死锁的检测"   >
+          <a href="#死锁的检测" class="heading-link"><i class="fas fa-link"></i></a><a href="#死锁的检测" class="headerlink" title="死锁的检测"></a>死锁的检测</h2>
+      <ul>
+<li><p>为了能对系统是否已发生了死锁进行检测，必须：</p>
+<ol>
+<li>用<strong>某种数据结构</strong>来保存资源的请求和分配信息</li>
+<li>提供<strong>一种算法</strong>，利用上述信息来检测系统是否已进入死锁状态。</li>
+</ol>
+</li>
+<li><p>数据结构：资源分配图</p>
+<ul>
+<li>两种结点<ul>
+<li>进程结点：对应一个进程</li>
+<li>资源结点：对应一类资源，一类资源可能有多个</li>
+</ul>
+</li>
+<li>两种边<ul>
+<li>进程结点-&gt;资源结点：表示进程想申请几个资源(每条边代表一个)</li>
+<li>资源结点-&gt;进程结点：表示已经为进程分配了几个资源(每边代表一个)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>一般用矩形表示资源结点，矩形中的小圆代表该类资源的数量。</p>
+<p>如果系统中剩余的可用资源数足够满足进程的需求，那么这个进程暂时时不会阻塞的，可以顺利地实行下去。</p>
+<p>如果这个进程执行结束了把资源归还系统，就可能使某些正在等待资源的进程被激活，并顺利地执行下去。</p>
+<p>相应的，这些被激活的进程执行完了之后又会归还一些资源，这样可能又会激活另外一些阻塞的进程……</p>
+<p>如果按上述过程分析，最终<strong>能消除所有边</strong>，就称这个图是<strong>可完全简化的</strong>。此时一定<strong>没有发生死锁</strong>(详单与找到了一个安全序列)</p>
+<p>如果最终<strong>不能消除所有边</strong>，那么此时就是<strong>发生了死锁</strong>。</p>
+<p><strong>最终还连着边的那些进程就是处于死锁状态的进程</strong>。</p>
+<p>死锁定理：如果某时刻系统的资源分配图是<strong>不完全可简化</strong>的，那么此时系统<strong>死锁了</strong></p>
+
+        <h2 id="死锁的解除"   >
+          <a href="#死锁的解除" class="heading-link"><i class="fas fa-link"></i></a><a href="#死锁的解除" class="headerlink" title="死锁的解除"></a>死锁的解除</h2>
+      <p>一旦检测出死锁的发生，就应该立即解除死锁。</p>
+<p>补充：并不是系统中所有的进程都是死锁状态，用死锁检测算法<strong>化简资源分配图后，还连着边的那些进程就是死锁进程</strong></p>
+<ul>
+<li><p>解除死锁的主要方法有：</p>
+<ol>
+<li>资源剥夺法：挂起某些死锁进程，并抢占它的资源，将这些资源分配给其他的死锁进程。但是应防止被挂起的进程长时间得不到资源而饥饿。</li>
+<li>撤销进程法(或称终止进程法)：强制撤销部分、甚至全部死锁进程，并剥夺这些进程的资源。这种方式的优点时实现简单，但付出的代价可能会很大。因为有些进程可能已经运行了很长时间，已经接近结束了，一旦终止可谓功亏一篑，以后还得从头再来。</li>
+<li>进程回退法：让一个或多个死锁进程回退到足以避免死锁的地步。这就要求系统要记录进程的历史信息，设置还原点。</li>
+</ol>
+</li>
+<li><p>如何决定对谁动手？</p>
+<ul>
+<li>进程优先级</li>
+<li>已执行多长时间</li>
+<li>还要多久能完成</li>
+<li>进程已经使用了多少资源</li>
+<li>进程是交互式的还是批处理式的</li>
+</ul>
+</li>
+</ul>
+<hr>
+
+        <h2 id="总结-2"   >
+          <a href="#总结-2" class="heading-link"><i class="fas fa-link"></i></a><a href="#总结-2" class="headerlink" title="总结"></a>总结</h2>
+      <ul>
+<li>如何检测<ul>
+<li>数据结构：资源分配图<ul>
+<li>两种结点<ul>
+<li>进程结点</li>
+<li>资源结点</li>
+</ul>
+</li>
+<li>两种边<ul>
+<li>进程结点-&gt;资源结点(请求边)</li>
+<li>资源结点-&gt;进程结点(分配边)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>死锁检测算法<ul>
+<li>依次消除于不阻塞进程相连的边，直到无边可消</li>
+<li>注：所谓不阻塞进程是指其申请的资源数还足够的进程</li>
+<li>死锁定理：若资源分配图是不完全简化的，说明发生了死锁</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如何解锁<ul>
+<li>资源剥夺法</li>
+<li>撤销进程法(终止进程法)</li>
+<li>进程回退法</li>
+</ul>
+</li>
+</ul>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://www.gddfeng.com">gddFeng</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://www.gddfeng.com/Major-%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E3%80%90%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E3%80%912-4-%E6%AD%BB%E9%94%81/">http://www.gddfeng.com/Major-%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F-%E3%80%90%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E3%80%912-4-%E6%AD%BB%E9%94%81/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.gddfeng.com/tags/%E8%80%83%E7%A0%94%E5%AD%A6%E4%B9%A0/">考研学习</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://www.gddfeng.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">计算机操作系统</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/%E3%80%90%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E3%80%913-1-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">【计算机操作系统】3-1-内存管理</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/%E4%B8%8B%E8%BD%BD%E5%9C%B0%E5%9D%80%E5%90%88%E9%9B%86/"><span class="paginator-prev__text">[ 文章无标题 ]</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">
+          死锁的概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%AD%BB%E9%94%81"><span class="toc-number">1.1.</span> <span class="toc-text">
+          什么是死锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E3%80%81%E9%A5%A5%E9%A5%BF%E3%80%81%E6%AD%BB%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.2.</span> <span class="toc-text">
+          死锁、饥饿、死循环的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E4%BA%A7%E7%94%9F%E7%9A%84%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.3.</span> <span class="toc-text">
+          死锁产生的必要条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BC%9A%E5%8F%91%E7%94%9F%E6%AD%BB%E9%94%81"><span class="toc-number">1.4.</span> <span class="toc-text">
+          什么时候会发生死锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5"><span class="toc-number">1.5.</span> <span class="toc-text">
+          死锁的处理策略</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5%E2%80%94%E2%80%94%E9%A2%84%E9%98%B2%E6%AD%BB%E9%94%81"><span class="toc-number">2.</span> <span class="toc-text">
+          死锁的处理策略——预防死锁</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A0%B4%E5%9D%8F%E4%BA%92%E6%96%A5%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.1.</span> <span class="toc-text">
+          破坏互斥条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A0%B4%E5%9D%8F%E4%B8%8D%E5%89%A5%E5%A4%BA%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">
+          破坏不剥夺条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A0%B4%E5%9D%8F%E8%AF%B7%E6%B1%82%E5%92%8C%E4%BF%9D%E6%8C%81%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.3.</span> <span class="toc-text">
+          破坏请求和保持条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A0%B4%E5%9D%8F%E5%BE%AA%E7%8E%AF%E7%AD%89%E5%BE%85%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.4.</span> <span class="toc-text">
+          破坏循环等待条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.5.</span> <span class="toc-text">
+          总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5%E2%80%94%E2%80%94%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81"><span class="toc-number">3.</span> <span class="toc-text">
+          死锁的处理策略——避免死锁</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%AE%89%E5%85%A8%E5%BA%8F%E5%88%97"><span class="toc-number">3.1.</span> <span class="toc-text">
+          什么是安全序列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E5%BA%8F%E5%88%97%E3%80%81%E4%B8%8D%E5%AE%89%E5%85%A8%E7%8A%B6%E6%80%81%E3%80%81%E6%AD%BB%E9%94%81%E7%9A%84%E8%81%94%E7%B3%BB"><span class="toc-number">3.2.</span> <span class="toc-text">
+          安全序列、不安全状态、死锁的联系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95"><span class="toc-number">3.3.</span> <span class="toc-text">
+          银行家算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-1"><span class="toc-number">3.4.</span> <span class="toc-text">
+          总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5%E2%80%94%E2%80%94%E6%A3%80%E6%B5%8B%E5%92%8C%E8%A7%A3%E9%99%A4"><span class="toc-number">4.</span> <span class="toc-text">
+          死锁的处理策略——检测和解除</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E6%A3%80%E6%B5%8B"><span class="toc-number">4.1.</span> <span class="toc-text">
+          死锁的检测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E8%A7%A3%E9%99%A4"><span class="toc-number">4.2.</span> <span class="toc-text">
+          死锁的解除</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-2"><span class="toc-number">4.3.</span> <span class="toc-text">
+          总结</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/stun-logo.svg" alt="avatar"></div><p class="sidebar-ov-author__text">gddFeng</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2418180738&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">25</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">7</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021~2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>gddFeng All Rights Reserved</span><span class="footer__devider">|</span><span>冀2021001072号</span></div><div>有英勇也有温柔。</div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>
