@@ -1,0 +1,380 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="【LFS】个性化Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【LFS】个性化Linux">
+<meta property="og:url" content="http://blog.gddfeng.com/%E3%80%90lfs%E3%80%91%E4%B8%AA%E6%80%A7%E5%8C%96linux/index.html">
+<meta property="og:site_name" content="孤独的風">
+<meta property="og:description" content="【LFS】个性化Linux">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-20T05:34:18.000Z">
+<meta property="article:modified_time" content="2022-03-20T05:34:18.000Z">
+<meta property="article:author" content="gddFeng">
+<meta property="article:tag" content="考研学习">
+<meta property="article:tag" content="计算机操作系统">
+<meta name="twitter:card" content="summary"><title>【LFS】个性化Linux | 孤独的風</title><link ref="canonical" href="http://blog.gddfeng.com/%E3%80%90lfs%E3%80%91%E4%B8%AA%E6%80%A7%E5%8C%96linux/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/课堂笔记/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">课堂笔记</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">编程语言</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/编程语言/c/"><span class="header-nav-submenu-item__text">C++</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">考研学习</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/考研学习/计算机网络/"><span class="header-nav-submenu-item__text">计算机网络</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/考研学习/计算机操作系统/"><span class="header-nav-submenu-item__text">计算机操作系统</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">渗透测试</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/渗透测试/SQL注入/"><span class="header-nav-submenu-item__text">SQL注入</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">【LFS】个性化Linux</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-03-20</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-03-20</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">822</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">7分</span></span></div></header><div class="post-body">
+        <h1 id="教程和我的环境"   >
+          <a href="#教程和我的环境" class="heading-link"><i class="fas fa-link"></i></a><a href="#教程和我的环境" class="headerlink" title="教程和我的环境"></a>教程和我的环境</h1>
+      <p>bilibili：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1TU4y1W7nV?p=1" >一位UP的没有讲解的参考视频</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>LFS：<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://bf.mengyan1223.wang/lfs/zh_CN/11.1/" >LFS的官方中文文档</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+
+        <h2 id="环境"   >
+          <a href="#环境" class="heading-link"><i class="fas fa-link"></i></a><a href="#环境" class="headerlink" title="环境"></a>环境</h2>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">宿主系统：CentOS-7-x86_64-DVD-2009.iso</span><br><span class="line">两个硬盘：一个硬盘sda 20GB，一个硬盘sdb 100GB</span><br></pre></td></tr></table></div></figure>
+
+
+        <h1 id="初始化环境"   >
+          <a href="#初始化环境" class="heading-link"><i class="fas fa-link"></i></a><a href="#初始化环境" class="headerlink" title="初始化环境"></a>初始化环境</h1>
+      <p>终端运行下面代码，生成环境检查文件</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">cat &gt; version-check.sh &lt;&lt; <span class="string">&quot;EOF&quot;</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment"># Simple script to list version numbers of critical development tools</span></span><br><span class="line"><span class="built_in">export</span> LC_ALL=C</span><br><span class="line">bash --version | head -n1 | cut -d<span class="string">&quot; &quot;</span> -f2-4</span><br><span class="line">MYSH=$(readlink -f /bin/sh)</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;/bin/sh -&gt; <span class="variable">$MYSH</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$MYSH</span> | grep -q bash || <span class="built_in">echo</span> <span class="string">&quot;ERROR: /bin/sh does not point to bash&quot;</span></span><br><span class="line"><span class="built_in">unset</span> MYSH</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> -n <span class="string">&quot;Binutils: &quot;</span>; ld --version | head -n1 | cut -d<span class="string">&quot; &quot;</span> -f3-</span><br><span class="line">bison --version | head -n1</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -h /usr/bin/yacc ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;/usr/bin/yacc -&gt; `readlink -f /usr/bin/yacc`&quot;</span>;</span><br><span class="line"><span class="keyword">elif</span> [ -x /usr/bin/yacc ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> yacc is `/usr/bin/yacc --version | head -n1`</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;yacc not found&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> -n <span class="string">&quot;Coreutils: &quot;</span>; chown --version | head -n1 | cut -d<span class="string">&quot;)&quot;</span> -f2</span><br><span class="line">diff --version | head -n1</span><br><span class="line">find --version | head -n1</span><br><span class="line">gawk --version | head -n1</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -h /usr/bin/awk ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;/usr/bin/awk -&gt; `readlink -f /usr/bin/awk`&quot;</span>;</span><br><span class="line"><span class="keyword">elif</span> [ -x /usr/bin/awk ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> awk is `/usr/bin/awk --version | head -n1`</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;awk not found&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">gcc --version | head -n1</span><br><span class="line">g++ --version | head -n1</span><br><span class="line">grep --version | head -n1</span><br><span class="line">gzip --version | head -n1</span><br><span class="line">cat /proc/version</span><br><span class="line">m4 --version | head -n1</span><br><span class="line">make --version | head -n1</span><br><span class="line">patch --version | head -n1</span><br><span class="line"><span class="built_in">echo</span> Perl `perl -V:version`</span><br><span class="line">python3 --version</span><br><span class="line">sed --version | head -n1</span><br><span class="line">tar --version | head -n1</span><br><span class="line">makeinfo --version | head -n1  <span class="comment"># texinfo version</span></span><br><span class="line">xz --version | head -n1</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;int main()&#123;&#125;&#x27;</span> &gt; dummy.c &amp;&amp; g++ -o dummy dummy.c</span><br><span class="line"><span class="keyword">if</span> [ -x dummy ]</span><br><span class="line">  <span class="keyword">then</span> <span class="built_in">echo</span> <span class="string">&quot;g++ compilation OK&quot;</span>;</span><br><span class="line">  <span class="keyword">else</span> <span class="built_in">echo</span> <span class="string">&quot;g++ compilation failed&quot;</span>; <span class="keyword">fi</span></span><br><span class="line">rm -f dummy.c dummy</span><br><span class="line">EOF</span><br></pre></td></tr></table></div></figure>
+
+<p>然后运行<code>bash version-check.sh</code>进行环境检查，发现有几个文件没有安装</p>
+<p>接下来安装这些文件</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum -y install bison</span><br><span class="line">yum -y install python3</span><br><span class="line">yum -y install gcc-c++.x86_64</span><br></pre></td></tr></table></div></figure>
+
+<p>在运行<code>bash version-check.sh</code>就会发现OK了</p>
+
+        <h1 id="硬盘分配"   >
+          <a href="#硬盘分配" class="heading-link"><i class="fas fa-link"></i></a><a href="#硬盘分配" class="headerlink" title="硬盘分配"></a>硬盘分配</h1>
+      <p>我单独分了一块硬盘出来LFS，所以要初始化一下硬盘</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkfs -v -t ext4 /dev/sdb</span><br><span class="line">mkdit /mnt/lfs</span><br><span class="line"><span class="built_in">export</span> LFS=/mnt/lfs</span><br><span class="line">mount /dev/sdb <span class="variable">$LFS</span></span><br></pre></td></tr></table></div></figure>
+
+
+        <h1 id="安装软件包和补丁"   >
+          <a href="#安装软件包和补丁" class="heading-link"><i class="fas fa-link"></i></a><a href="#安装软件包和补丁" class="headerlink" title="安装软件包和补丁"></a>安装软件包和补丁</h1>
+      <p>要下载<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://bf.mengyan1223.wang/lfs/zh_CN/11.1/wget-list" >wget-list</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -v <span class="variable">$LFS</span>/sources</span><br><span class="line">chmod -v a+wt <span class="variable">$LFS</span>/sources</span><br><span class="line">wget --input-file=wget-list --<span class="built_in">continue</span> --directory-prefix=<span class="variable">$LFS</span>/sources</span><br></pre></td></tr></table></div></figure>
+
+<p>我这里虚拟机的CentOS 7连不上github，然后我配置了一个Clash，用了我自己的节点，进行的下载。如果你下载不了的话自己想办法吧，仁者见仁智者见智。</p>
+<p>好叭Clash配置也不好用，换了一个源</p>
+<p>下载<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.linux.cn/lfs/LFS-BOOK-7.7-systemd/wget-list-LFS7.7-systemd-USTC" >wget-list-LFS7.7-systemd-USTC</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>感谢中科大提供的源！</p>
+<p>下载<span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://www.linux.cn/lfs/LFS-BOOK-7.7-systemd/md5sums" >md5sums</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>进行验证是否下载完成</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">md5sum -c md5sums</span><br></pre></td></tr></table></div></figure>
+
+
+        <h1 id="最后的准备工作"   >
+          <a href="#最后的准备工作" class="heading-link"><i class="fas fa-link"></i></a><a href="#最后的准备工作" class="headerlink" title="最后的准备工作"></a>最后的准备工作</h1>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -v $LFS/tools</span><br><span class="line">ln -sv $LFS/tools /</span><br></pre></td></tr></table></div></figure>
+
+<p>在执行第一个命令的时候不知道为什么全局变量$LFS失效了，在根目录生了tools文件夹，导致第二步一直不成功。把文件夹都删了重新来就行了。</p>
+<p>现在知道了，export设置的全局变量仅在当前终端有效，关了终端就没了，得重新设置！！！</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">groupadd lfs</span><br><span class="line">useradd -s /bin/bash -g lfs -m -k /dev/null lfs</span><br><span class="line">passwd lfs</span><br><span class="line">//我设置成了空密码</span><br><span class="line">chown -v lfs $LFS/tools</span><br><span class="line">chown -v lfs $LFS/sources</span><br><span class="line">su - lfs//登录lfs</span><br></pre></td></tr></table></div></figure>
+
+<p>接着在bash下设置环境</p>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat &gt; ~/.bash_profile &lt;&lt; &quot;EOF&quot;</span><br><span class="line">exec env -i HOME=$HOME TERM=$TERM PS1=&#x27;\u:\w\$ &#x27; /bin/bash</span><br><span class="line">EOF</span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cat &gt; ~/.bashrc &lt;&lt; &quot;EOF&quot;</span><br><span class="line">set +h</span><br><span class="line">umask 022</span><br><span class="line">LFS=/mnt/lfs</span><br><span class="line">LC_ALL=POSIX</span><br><span class="line">LFS_TGT=$(uname -m)-lfs-linux-gnu</span><br><span class="line">PATH=/tools/bin:/bin:/usr/bin</span><br><span class="line">export LFS LC_ALL LFS_TGT PATH</span><br><span class="line">EOF</span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></div></figure>
+
+
+        <h1 id="构建临时系统"   >
+          <a href="#构建临时系统" class="heading-link"><i class="fas fa-link"></i></a><a href="#构建临时系统" class="headerlink" title="构建临时系统"></a>构建临时系统</h1>
+      <figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chown -v lfs $LFS</span><br><span class="line">chmod 777 $LFS</span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd $LFS/sources/</span><br><span class="line">tar -jxvf binutils-2.25.tar.bz2</span><br><span class="line">cd binutils-2.25.tar.bz2</span><br><span class="line">mkdir -v build</span><br><span class="line">cd build</span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">../configure     \</span><br><span class="line">    --prefix=/tools            \</span><br><span class="line">    --with-sysroot=$LFS        \</span><br><span class="line">    --with-lib-path=/tools/lib \</span><br><span class="line">    --target=$LFS_TGT          \</span><br><span class="line">    --disable-nls              \</span><br><span class="line">    --disable-werror</span><br></pre></td></tr></table></div></figure></div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://blog.gddfeng.com">gddFeng</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://blog.gddfeng.com/%E3%80%90lfs%E3%80%91%E4%B8%AA%E6%80%A7%E5%8C%96linux/">http://blog.gddfeng.com/%E3%80%90lfs%E3%80%91%E4%B8%AA%E6%80%A7%E5%8C%96linux/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://blog.gddfeng.com/tags/%E8%80%83%E7%A0%94%E5%AD%A6%E4%B9%A0/">考研学习</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://blog.gddfeng.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">计算机操作系统</a></span></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/%E3%80%90%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E3%80%913-2-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E5%8F%8A%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2/"><span class="paginator-prev__text">【计算机操作系统】3-2-虚拟内存及页面置换</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%99%E7%A8%8B%E5%92%8C%E6%88%91%E7%9A%84%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">
+          教程和我的环境</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-number">1.1.</span> <span class="toc-text">
+          环境</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">
+          初始化环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A1%AC%E7%9B%98%E5%88%86%E9%85%8D"><span class="toc-number">3.</span> <span class="toc-text">
+          硬盘分配</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%92%8C%E8%A1%A5%E4%B8%81"><span class="toc-number">4.</span> <span class="toc-text">
+          安装软件包和补丁</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E5%90%8E%E7%9A%84%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-number">5.</span> <span class="toc-text">
+          最后的准备工作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA%E4%B8%B4%E6%97%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">6.</span> <span class="toc-text">
+          构建临时系统</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/stun-logo.svg" alt="avatar"></div><p class="sidebar-ov-author__text">gddFeng</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2418180738&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">27</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">8</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021~2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>gddFeng All Rights Reserved</span><span class="footer__devider">|</span><span>冀2021001072号</span></div><div>有英勇也有温柔。</div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>
