@@ -1,0 +1,437 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.6.2" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.6.2" type="image/png" sizes="32x32"><meta name="description" content="【蓝桥】排序与排列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【蓝桥】排序与排列">
+<meta property="og:url" content="http://blog.gddfeng.com/Program-lanqiao-%E3%80%90%E8%93%9D%E6%A1%A5%E3%80%91%E6%8E%92%E5%BA%8F%E4%B8%8E%E6%8E%92%E5%88%97/index.html">
+<meta property="og:site_name" content="孤独的風">
+<meta property="og:description" content="【蓝桥】排序与排列">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-04-25T06:37:29.000Z">
+<meta property="article:modified_time" content="2022-04-25T06:37:29.000Z">
+<meta property="article:author" content="gddFeng">
+<meta property="article:tag" content="编程语言">
+<meta property="article:tag" content="蓝桥">
+<meta name="twitter:card" content="summary"><title>【蓝桥】排序与排列 | 孤独的風</title><link ref="canonical" href="http://blog.gddfeng.com/Program-lanqiao-%E3%80%90%E8%93%9D%E6%A1%A5%E3%80%91%E6%8E%92%E5%BA%8F%E4%B8%8E%E6%8E%92%E5%88%97/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":false,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"carbon","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"复制","copySuccess":"复制成功","copyError":"复制失败"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/课堂笔记/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">课堂笔记</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">编程语言</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/编程语言/c/"><span class="header-nav-submenu-item__text">C++</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/编程语言/蓝桥/"><span class="header-nav-submenu-item__text">蓝桥</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">考研学习</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/考研学习/计算机网络/"><span class="header-nav-submenu-item__text">计算机网络</span></a></div><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/考研学习/计算机操作系统/"><span class="header-nav-submenu-item__text">计算机操作系统</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="javascript:;" onclick="return false;"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">渗透测试</span></a><div class="header-nav-submenu"><div class="header-nav-submenu-item"><a class="header-nav-submenu-item__link" href="/categories/渗透测试/SQL注入/"><span class="header-nav-submenu-item__text">SQL注入</span></a></div></div></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">归档</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">【蓝桥】排序与排列</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-04-25</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-04-25</span></span><span class="post-meta-item post-meta-item--wordcount"><span class="post-meta-item__icon"><i class="far fa-file-word"></i></span><span class="post-meta-item__info">字数统计</span><span class="post-meta-item__value">1.4k</span></span><span class="post-meta-item post-meta-item--readtime"><span class="post-meta-item__icon"><i class="far fa-clock"></i></span><span class="post-meta-item__info">阅读时长</span><span class="post-meta-item__value">11分</span></span></div></header><div class="post-body">
+        <h1 id="排序"   >
+          <a href="#排序" class="heading-link"><i class="fas fa-link"></i></a><a href="#排序" class="headerlink" title="排序"></a>排序</h1>
+      
+        <h2 id="常见排序的介绍与比较"   >
+          <a href="#常见排序的介绍与比较" class="heading-link"><i class="fas fa-link"></i></a><a href="#常见排序的介绍与比较" class="headerlink" title="常见排序的介绍与比较"></a>常见排序的介绍与比较</h2>
+      <p>排序是数据处理的基本操作。常见的排序算法有：</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="center">排序算法</th>
+<th align="center">时间复杂度</th>
+<th align="center">原理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">选择排序</td>
+<td align="center">O(n^2)</td>
+<td align="center">比较</td>
+</tr>
+<tr>
+<td align="center">插入排序</td>
+<td align="center">O(n^2)</td>
+<td align="center">比较</td>
+</tr>
+<tr>
+<td align="center">冒泡排序</td>
+<td align="center">O(n^2)</td>
+<td align="center">比较</td>
+</tr>
+<tr>
+<td align="center">归并排序</td>
+<td align="center">O(nlogn)</td>
+<td align="center">比较、分治</td>
+</tr>
+<tr>
+<td align="center">快速排序</td>
+<td align="center">O(nlogn) 不稳定</td>
+<td align="center">比较、分治</td>
+</tr>
+<tr>
+<td align="center">堆排序</td>
+<td align="center">O(nlogn)</td>
+<td align="center">比较、二叉树</td>
+</tr>
+<tr>
+<td align="center">计数排序</td>
+<td align="center">O(n+k) 不稳定</td>
+<td align="center">对数值按位划分</td>
+</tr>
+<tr>
+<td align="center">基数排序</td>
+<td align="center">O(n)</td>
+<td align="center">对数值按位划分</td>
+</tr>
+<tr>
+<td align="center">桶排序</td>
+<td align="center">O(n)</td>
+<td align="center">对数值分类、分治</td>
+</tr>
+</tbody></table></div>
+<p>前三种比较的办法都是暴力排序，效率相对比较低下。快排虽然不稳定，<strong>但在通常情况下效果最好</strong>，不通常的情况往往指的是<strong>已经排好</strong>的情况。</p>
+<p>对数值按位划分的做法是 <strong>以空间换取时间</strong>的做法。使用要求十分苛刻！</p>
+<p>一般编程语言都有排序的相应函数，很舒服了❤</p>
+
+        <h2 id="C-的sort-函数"   >
+          <a href="#C-的sort-函数" class="heading-link"><i class="fas fa-link"></i></a><a href="#C-的sort-函数" class="headerlink" title="C++的sort()函数"></a>C++的sort()函数</h2>
+      <p>使用参数是这样的：<code>sort(开始地址，结束地址,[排序方法])</code></p>
+<p>排序方法有四种自带的<code>less</code>、<code>greater</code>、<code>less_equal</code>、<code>greater_equal</code>。缺省情况下是<code>less</code>从小到大排序。</p>
+<p>当然也可以手撸排序策略，具体使用方法如下：</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">my_less</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span>     </span>&#123;<span class="keyword">return</span> (i &lt; j);&#125;  <span class="comment">//自定义小于</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">my_greater</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span>  </span>&#123;<span class="keyword">return</span> (i &gt; j);&#125;  <span class="comment">//自定义大于</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span>&#123;</span><br><span class="line">    vector&lt;<span class="keyword">int</span>&gt; a = &#123;<span class="number">3</span>,<span class="number">7</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">5</span>,<span class="number">4</span>&#125;;</span><br><span class="line">    <span class="built_in">sort</span>(a.<span class="built_in">begin</span>(),a.<span class="built_in">begin</span>()+<span class="number">4</span>); <span class="comment">//对前4个排序，输出2 3 5 7 6 8 5 4</span></span><br><span class="line">  <span class="comment">//sort(a.begin(),a.end());     //从小到大排序， 输出2 3 4 5 5 6 7 8</span></span><br><span class="line">  <span class="comment">//sort(a.begin(),a.end(),less&lt;int&gt;());  //输出2 3 4 5 5 6 7 8</span></span><br><span class="line">  <span class="comment">//sort(a.begin(),a.end(),my_less);   //自定义排序，输出 2 3 4 5 5 6 7 8</span></span><br><span class="line">  <span class="comment">//sort(a.begin(),a.end(),greater&lt;int&gt;());//从大到小排序，输出 8 7 6 5 5 4 3 2</span></span><br><span class="line">  <span class="comment">//sort(a.begin(),a.end(),my_greater);    // 输出 8 7 6 5 5 4 3 2</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;a.<span class="built_in">size</span>(); i++)          <span class="comment">//输出</span></span><br><span class="line">    cout&lt;&lt;a[i]&lt;&lt; <span class="string">&quot; &quot;</span>;   </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+
+<p>使用 <code>cmp()</code>函数还可以对结构体排序</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Student</span>&#123;</span></span><br><span class="line"><span class="keyword">char</span> name[<span class="number">256</span>];</span><br><span class="line"><span class="keyword">int</span> score;   <span class="comment">//分数</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(struct Student* a,struct Student* b)</span></span>&#123;<span class="comment">//按分数从大到小排序</span></span><br><span class="line"><span class="keyword">return</span> a-&gt;score &gt; b-&gt;score;  </span><br><span class="line">&#125;       </span><br><span class="line">……</span><br><span class="line">vector&lt;struct Student*&gt; list;           <span class="comment">//定义list，把学生信息存到list里</span></span><br><span class="line">……</span><br><span class="line"><span class="built_in">sort</span>(list.<span class="built_in">begin</span>(), list.<span class="built_in">end</span>(), cmp);   <span class="comment">//按分数排序 </span></span><br></pre></td></tr></table></div></figure>
+
+
+        <h2 id="Python的sort-和sorted-函数"   >
+          <a href="#Python的sort-和sorted-函数" class="heading-link"><i class="fas fa-link"></i></a><a href="#Python的sort-和sorted-函数" class="headerlink" title="Python的sort()和sorted()函数"></a>Python的sort()和sorted()函数</h2>
+      <ol>
+<li><code>sort()</code> 和 <code>sorted()</code> 的区别 <code>sort()</code> 是应用在 <code>list</code> 上的方法，而 <code>sorted</code> 可以对所有可迭代的对象进行排序操作。  一个关键的区别是：<code>sort</code> 是在原位重新排列，而 <code>sorted()</code> 产生一个新的列表。</li>
+<li><code>sorted()</code> 说明 Python3 和 Python2的 <code>sorted()</code> 定义不同，下面给出 Python3 的定义。 <code>sorted(iterable, key=None, reverse=False)</code><ul>
+<li>参数：<ul>
+<li>iterable：可迭代对象。</li>
+<li>key：用来进行比较的元素，只有一个参数，具体的函数的参数取自于可迭代对象中，指定可迭代对象中的一个元素来进行排序。</li>
+<li>reverse：排序规则，reverse = True 降序，reverse = False 升序（默认）。</li>
+</ul>
+</li>
+<li>返回值：重新排序的列表</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">5</span>,<span class="number">7</span>,<span class="number">6</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">2</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">sorted</span>(a))    <span class="comment">#输出：[1, 2, 3, 4, 5, 6, 7]， a不变</span></span><br><span class="line">a.sort()            <span class="comment">#直接在a上原位排序，a改变了</span></span><br><span class="line"><span class="built_in">print</span>(a)            <span class="comment">#输出：[1, 2, 3, 4, 5, 6, 7]</span></span><br><span class="line"></span><br><span class="line">a = <span class="string">&quot;bcdae&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">sorted</span>(a))   <span class="comment">#输出：[&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;, &#x27;e&#x27;]</span></span><br><span class="line"><span class="comment">#这样是错的：a.sort()，因为sort 是应用在list上的，a不是list</span></span><br><span class="line"></span><br><span class="line">s1 = [(<span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;A&#x27;</span>, <span class="number">15</span>), (<span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="number">12</span>), (<span class="string">&#x27;e&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, <span class="number">10</span>)]</span><br><span class="line">s2 = <span class="built_in">sorted</span>(s1, key=<span class="keyword">lambda</span> s: s[<span class="number">2</span>])  <span class="comment"># 按第3个排序，默认升序</span></span><br><span class="line"><span class="built_in">print</span>(s2)  <span class="comment">#输出：[(&#x27;e&#x27;, &#x27;B&#x27;, 10), (&#x27;c&#x27;, &#x27;B&#x27;, 12), (&#x27;b&#x27;, &#x27;A&#x27;, 15)] </span></span><br><span class="line">s3 = <span class="built_in">sorted</span>(s1, key=<span class="keyword">lambda</span> s: s[<span class="number">2</span>], reverse=<span class="literal">True</span>) <span class="comment"># 按第3个排序，降序</span></span><br><span class="line"><span class="built_in">print</span>(s3)  <span class="comment">#输出：[(&#x27;b&#x27;, &#x27;A&#x27;, 15), (&#x27;c&#x27;, &#x27;B&#x27;, 12), (&#x27;e&#x27;, &#x27;B&#x27;, 10)]</span></span><br></pre></td></tr></table></div></figure>
+
+
+        <h1 id="排列"   >
+          <a href="#排列" class="heading-link"><i class="fas fa-link"></i></a><a href="#排列" class="headerlink" title="排列"></a>排列</h1>
+      
+        <h2 id="C-：next-permutation"   >
+          <a href="#C-：next-permutation" class="heading-link"><i class="fas fa-link"></i></a><a href="#C-：next-permutation" class="headerlink" title="C++ ：next_permutation()"></a>C++ ：next_permutation()</h2>
+      <p><code>next_permutation()</code>是从当前的全排列开始输出，而不是输出所有的全排列。</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    string s=<span class="string">&quot;bca&quot;</span>;</span><br><span class="line">    <span class="keyword">do</span>&#123;</span><br><span class="line">       cout&lt;&lt;s&lt;&lt;endl;</span><br><span class="line">    &#125;<span class="keyword">while</span>(<span class="built_in">next_permutation</span>(s.<span class="built_in">begin</span>(),s.<span class="built_in">end</span>()));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">输出：</span></span><br><span class="line"><span class="comment">bca</span></span><br><span class="line"><span class="comment">cab</span></span><br><span class="line"><span class="comment">cba</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></div></figure>
+
+<p>不过可以<strong>通过sort先进行排列</strong>，然后在进行全排列输出，这样就能输出全排列了！</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    string s=<span class="string">&quot;bca&quot;</span>;</span><br><span class="line">    <span class="built_in">sort</span>(s.<span class="built_in">begin</span>(),s.<span class="built_in">end</span>());  <span class="comment">//字符串内部排序，得到最小的排列“abc”</span></span><br><span class="line">    <span class="keyword">do</span>&#123;</span><br><span class="line">       cout&lt;&lt;s&lt;&lt;endl;</span><br><span class="line">    &#125;<span class="keyword">while</span>(<span class="built_in">next_permutation</span>(s.<span class="built_in">begin</span>(),s.<span class="built_in">end</span>()));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*输出：</span></span><br><span class="line"><span class="comment">abc</span></span><br><span class="line"><span class="comment">acb</span></span><br><span class="line"><span class="comment">bac</span></span><br><span class="line"><span class="comment">bca</span></span><br><span class="line"><span class="comment">cab</span></span><br><span class="line"><span class="comment">cba</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></div></figure>
+
+<p>C++还有一个<code>prev_permutation()</code>，是反向输出全排列，用法是一样的！</p>
+
+        <h2 id="Python：permutations"   >
+          <a href="#Python：permutations" class="heading-link"><i class="fas fa-link"></i></a><a href="#Python：permutations" class="headerlink" title="Python：permutations()"></a>Python：permutations()</h2>
+      <p>下面两种方法是输出长度为2的全排列，如果把函数里的2去掉变成<code>permutations(s)</code>，那么就是全排列了，只不过不是按大小排序的。</p>
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> *</span><br><span class="line">s = [<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>]</span><br><span class="line"><span class="keyword">for</span> element <span class="keyword">in</span> permutations(s, <span class="number">2</span>):</span><br><span class="line">    a = element[<span class="number">0</span>] + element[<span class="number">1</span>] </span><br><span class="line">    <span class="built_in">print</span>(a)</span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> *</span><br><span class="line">s = [<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>]</span><br><span class="line"><span class="keyword">for</span> element <span class="keyword">in</span> permutations(s,<span class="number">2</span>):</span><br><span class="line">    a=<span class="string">&#x27;&#x27;</span>.join(element)    <span class="comment">#把所有元素拼起来 </span></span><br><span class="line">    <span class="built_in">print</span>(a)</span><br></pre></td></tr></table></div></figure>
+
+<p>如果想让python按全排列结果的大小进行排序，可以先sort排序后进行排列！</p>
+
+        <h2 id="Python：combinations"   >
+          <a href="#Python：combinations" class="heading-link"><i class="fas fa-link"></i></a><a href="#Python：combinations" class="headerlink" title="Python：combinations()"></a>Python：combinations()</h2>
+      <p>这个排序不区分AB和BA的区别</p>
+<figure class="highlight c++"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from itertools <span class="keyword">import</span> *</span><br><span class="line">s = [<span class="string">&#x27;1&#x27;</span>,<span class="string">&#x27;3&#x27;</span>,<span class="string">&#x27;2&#x27;</span>]</span><br><span class="line"><span class="keyword">for</span> element in <span class="built_in">combinations</span>(s,<span class="number">2</span>):</span><br><span class="line">    a=<span class="string">&#x27;&#x27;.join(element)    #把所有元素拼起来 </span></span><br><span class="line"><span class="string">    print(a)</span></span><br></pre></td></tr></table></div></figure></div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="http://blog.gddfeng.com">gddFeng</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="http://blog.gddfeng.com/Program-lanqiao-%E3%80%90%E8%93%9D%E6%A1%A5%E3%80%91%E6%8E%92%E5%BA%8F%E4%B8%8E%E6%8E%92%E5%88%97/">http://blog.gddfeng.com/Program-lanqiao-%E3%80%90%E8%93%9D%E6%A1%A5%E3%80%91%E6%8E%92%E5%BA%8F%E4%B8%8E%E6%8E%92%E5%88%97/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://blog.gddfeng.com/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://blog.gddfeng.com/tags/%E8%93%9D%E6%A1%A5/">蓝桥</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/%E3%80%90%E8%93%9D%E6%A1%A5%E3%80%91%E5%88%86%E6%95%B0%E7%BA%BF%E5%88%92%E5%AE%9A/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">【蓝桥】分数线划定</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/Program-C-%E3%80%90%E8%93%9D%E6%A1%A5%E3%80%91%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9D%83%E5%80%BC/"><span class="paginator-prev__text">【蓝桥】完全二叉树的权值</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F"><span class="toc-number">1.</span> <span class="toc-text">
+          排序</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E6%8E%92%E5%BA%8F%E7%9A%84%E4%BB%8B%E7%BB%8D%E4%B8%8E%E6%AF%94%E8%BE%83"><span class="toc-number">1.1.</span> <span class="toc-text">
+          常见排序的介绍与比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E7%9A%84sort-%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.</span> <span class="toc-text">
+          C++的sort()函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python%E7%9A%84sort-%E5%92%8Csorted-%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.</span> <span class="toc-text">
+          Python的sort()和sorted()函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8E%92%E5%88%97"><span class="toc-number">2.</span> <span class="toc-text">
+          排列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%EF%BC%9Anext-permutation"><span class="toc-number">2.1.</span> <span class="toc-text">
+          C++ ：next_permutation()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python%EF%BC%9Apermutations"><span class="toc-number">2.2.</span> <span class="toc-text">
+          Python：permutations()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python%EF%BC%9Acombinations"><span class="toc-number">2.3.</span> <span class="toc-text">
+          Python：combinations()</span></a></li></ol></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/stun-logo.svg" alt="avatar"></div><p class="sidebar-ov-author__text">gddFeng</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2418180738&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener" data-popover="QQ" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-qq"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">41</div><div class="sidebar-ov-state-item__name">归档</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">10</div><div class="sidebar-ov-state-item__name">分类</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享许可协议" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021~2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>gddFeng All Rights Reserved</span><span class="footer__devider">|</span><span>冀2021001072号</span></div><div>有英勇也有温柔。</div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ 文章无标题 ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', '请输入字符');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.6.2"></script><script src="/js/stun-boot.js?v=2.6.2"></script><script src="/js/scroll.js?v=2.6.2"></script><script src="/js/header.js?v=2.6.2"></script><script src="/js/sidebar.js?v=2.6.2"></script><script type="application/json" src="/search.json"></script></body></html>
